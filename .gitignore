@@ -1,0 +1,8 @@
+*~
+*.pyc
+*.db
+
+**/temp.*
+.commit
+
+cmd.bat

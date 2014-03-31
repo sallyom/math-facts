@@ -1,0 +1,30 @@
+/****************/
+/* General Tags */
+/****************/
+
+body {
+    font-family:serif;
+    margin:1em;
+    background:#e6eefe;
+    max-width:100%;
+}
+a {
+    color:blue;
+    text-decoration:none;
+}
+a:hover {
+    text-decoration:underline;
+}
+
+/*****************/
+/* Special media */
+/*****************/
+
+@media screen and (min-width:960px) {
+/* TABLET or SCREEN */
+    #side-content {
+        float:right;
+        margin:1em 0 1em 1em;
+        max-width:45%;
+    }
+}
