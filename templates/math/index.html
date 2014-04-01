@@ -8,10 +8,11 @@
 
 {% block main-content %}
 
-<ul class="buttons">
-    {% for level in range %}
-    <li><a href="{% url math_facts level %}">{{ level }}</a></li>
-    {% endfor %}
+<h2>Navigation</h2>
+<ul>
+    <li><a href="{% url facts %}">Math Facts List</a></li>
+    <li><a href="{% url table %}">Addition Tables</a></li>
 </ul>
 
+{% include 'math/mathjax.html' %}
 {% endblock %}

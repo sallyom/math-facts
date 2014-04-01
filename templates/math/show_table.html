@@ -1,0 +1,83 @@
+﻿{% extends "math/base.html" %}
+
+{% block extra-style %}
+table {
+    background-color:white;
+    border-spacing:0;
+    border-top:1px solid black;
+    border-left:1px solid black;
+}
+th,td {
+    padding:0;
+    width:2.5em;
+    line-height:2.5em;
+    border-right:1px solid black;
+    border-bottom:1px solid black;
+}
+th {
+    background-color:#eee;
+}
+td {
+    background-color:transparent;
+}
+td * {
+    background-color:transparent;
+}
+td:hover {
+    background-color:yellow;
+}
+.hover {
+    background-color:#ffc;
+}
+{% endblock %}
+
+{% block extra-script %}
+$(function() {
+    $("table").delegate('td','mouseover mouseleave', function(e) {
+        if (e.type == 'mouseover') {
+            $(this).parent().addClass("hover");
+            $("col").eq($(this).index()).addClass("hover");
+        }
+        else {
+            $(this).parent().removeClass("hover");
+            $("col").eq($(this).index()).removeClass("hover");
+        }
+    });
+    $("table").delegate('td','click', function(e) {
+        $(this).parent().removeClass("hover");
+        $("col").eq($(this).index()).removeClass("hover");
+    });
+});
+{% endblock %}
+
+{% block main-content %}
+
+<p><a href="{% url table %}">&laquo; Back </a></p>
+
+<h2>Addition Table (Order {{ order }})</h2>
+<table>
+    <colgroup>
+        <col>
+        {% for term in table.headers %}
+        <col>
+        {% endfor %}
+    </colgroup>
+    
+    <tr>
+        <th>{{ table.corner }}</th>
+        {% for term in table.headers %}
+        <th>{{ term }}</th>
+        {% endfor %}
+    </tr>
+
+    {% for row in table.rows %}
+    <tr>
+        <th>{{ row.term }}</th>
+        {% for sum in row.sums %}
+        <td>{{ sum }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

@@ -1,13 +1,10 @@
 ﻿{% extends "math/base.html" %}
 
-{% block extra-script %}
-{% endblock %}
-
 {% block main-content %}
 
-<p><a href="{% url math_index %}">&laquo; Back </a></p>
+<p><a href="{% url facts %}">&laquo; Back </a></p>
 
-<h2>Addition</h2>
+<h2>Addition Facts (Order {{ order }})</h2>
 {% for fact in facts %}
 <div class="fact-blocks">
     <table>
@@ -23,21 +20,4 @@
 </div>
 {% endfor %}
 
-<h2>Subtraction</h2>
-{% for fact in facts %}
-<div class="fact-blocks">
-    <table>
-        <tr>
-            <td class="operation">{{ fact.2 }} − {{ fact.0 }}</td>
-            <td class="result">{{ fact.1 }}</td>
-        </tr>
-        <tr>
-            <td class="operation">{{ fact.2 }} − {{ fact.1 }}</td>
-            <td class="result">{{ fact.0 }}</td>
-        </tr>
-    </table>
-</div>
-{% endfor %}
-
-{% include "math/mathjax.html" %}
 {% endblock %}
