@@ -43,10 +43,6 @@ $(function() {
             $("col").eq($(this).index()).removeClass("hover");
         }
     });
-    $("table").delegate('td','click', function(e) {
-        $(this).parent().removeClass("hover");
-        $("col").eq($(this).index()).removeClass("hover");
-    });
 });
 {% endblock %}
 
