@@ -16,6 +16,68 @@ a:hover {
     text-decoration:underline;
 }
 
+ul.buttons {
+    padding-left:0;
+}
+ul.buttons > li {
+    list-style:none;
+    display:inline;
+    margin:0;
+    
+}
+ul.buttons > li > a {
+    display:inline-block;
+    line-height:3em;
+    width:3em;
+    text-align:center;
+    text-decoration:none;
+    color:blue;
+    border:1px solid white;
+    margin:2px 0;
+}
+ul.buttons > li > a:hover {
+    background:#f2f6fe;
+}
+
+.fact-blocks {
+    display:inline-block;
+    margin:0em;
+}
+.fact-blocks table {
+    background:#CCCCCC;
+    width:8em;
+}
+.fact-blocks table * {
+    background:white;
+}
+.fact-blocks table th,td {
+    padding:5px 10px;
+    text-align:center;
+}
+.fact-blocks table th {
+    background:#EEEEEE;
+}
+.fact-blocks table td {
+    background:transparent;
+}
+.fact-blocks table td * {
+    background:transparent
+}
+.fact-blocks table td.operation {
+    width:67%;
+}
+.fact-blocks table td.result {
+    width:33%;
+}
+.fact-blocks table input[type="text"] {
+    border:0;
+    text-align:center;
+    background:transparent
+}
+.fact-blocks table tr:hover {
+    background:#FFFFCC;
+}
+
 /*****************/
 /* Special media */
 /*****************/

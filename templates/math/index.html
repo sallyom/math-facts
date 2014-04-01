@@ -3,9 +3,15 @@
 {% block extra-script %}
 {% endblock %}
 
+{% block extra-style %}
+{% endblock %}
+
 {% block main-content %}
 
-<p>{{ text }}</p>
+<ul class="buttons">
+    {% for level in range %}
+    <li><a href="{% url math_facts level %}">{{ level }}</a></li>
+    {% endfor %}
+</ul>
 
-{% include "math/mathjax.html" %}
 {% endblock %}
