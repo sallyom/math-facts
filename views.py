@@ -11,7 +11,6 @@ from models import *
 order_min = 0
 order_max = 12
 
-
 def get_order(request):
     try:
         return int(request.session['order'])
@@ -115,6 +114,14 @@ def post_flashcard(request):
         
     success = ( answer == solution )
 
+    # increment cookie ...
+    
+    nbr_attempts = request.session.get('nbr_attempts', 0) + 1
+    nbr_correct = request.session.get('nbr_correct', 0) + success
+    
+    request.session['nbr_attempts'] = nbr_attempts
+    request.session['nbr_correct'] = nbr_correct
+    
     context = {
         'term1': term1,
         'term2': term2,
@@ -122,6 +129,14 @@ def post_flashcard(request):
         'solution': solution,
         'answer': answer,
         'success': success,
+        'nbr_attempts': nbr_attempts,
+        'nbr_correct': nbr_correct,
     }
     template = 'math/post_flashcard.html'
     return render(request, template, context)
+   
+   
+def reset_flashcard_cookie(request):
+    request.session['nbr_attempts'] = 0
+    request.session['nbr_correct'] = 0
+    return redirect('show_flashcard')

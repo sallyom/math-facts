@@ -12,4 +12,5 @@ urlpatterns = patterns('',
     
     url(r'^math/flashcard/$', views.show_flashcard, name='show_flashcard'),
     url(r'^math/flashcard/post/$', views.post_flashcard, name='post_flashcard'),
+    url(r'^math/flashcard/reset/$', views.reset_flashcard_cookie, name='reset_flashcard_cookie'),
 )

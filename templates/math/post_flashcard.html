@@ -15,10 +15,11 @@
     </form>
     <div class="feedback">
         {% if success %}
-        <p>This is correct! :)</p>
+        <p>This is correct!</p>
         {% else %}
-        <p>The answer is {{ solution }}</p>
+        <p>The answer is {{ solution }}.</p>
         {% endif %}
+        <p>So far, that is {{ nbr_correct }} out of {{ nbr_attempts }}.</p>
     </div>
 </div>
 
