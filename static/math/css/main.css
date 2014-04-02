@@ -27,20 +27,21 @@ a:hover {
     padding:0.2em;
     margin:0;
     list-style:none;
-    width:4em;
+    width:6em;
     overflow-x:scroll;
     transition:width 100ms;
     -webkit-transition:width 100ms; /* Safari */
 }
 #controls ul:hover {
-    width:9em !important;
+    width:11em !important;
 }
 #controls ul::-webkit-scrollbar { 
     display: none; 
 }    
 #controls li{
     display:block;
-    padding-left:3.5em;
+    padding-left:5.5em;
+    padding-right:0.5em;
     width:5em;
     margin:0.5em 0;
 }
@@ -218,7 +219,8 @@ ul.buttons > li > a:hover {
     line-height:2em;
 }
 .flashcard form {
-    border:1px solid black;
+    border:1px solid blue;
+    background:#f2f6fe;
     padding:1em;
 }
 .flashcard span {
@@ -236,7 +238,8 @@ ul.buttons > li > a:hover {
     border:0;
 }
 .flashcard .answer {
-    border:1px solid black;
+    border:1px solid blue;
+    background:white;
 }
 .flashcard button {
     display:block;
@@ -248,14 +251,18 @@ ul.buttons > li > a:hover {
 .flashcard .feedback {
     width:10em;
     margin:1em auto;
-    line-height:2em;
+    line-height:1.5em;
     text-align:center;
 }
-.flashcard .correct{
-    background:#8f8;
+.flashcard form.correct,
+.flashcard form.correct .answer {
+    border:1px solid green;
+    background:#d3efd3;
 }
-.flashcard .incorrect{
-    background:#ff8;
+.flashcard form.incorrect,
+.flashcard form.incorrect .answer {
+    border:1px solid orange;
+    background:#ffedcc;
 }
 
 /*****************/
@@ -264,9 +271,4 @@ ul.buttons > li > a:hover {
 
 @media screen and (min-width:960px) {
 /* TABLET or SCREEN */
-    #side-content {
-        float:right;
-        margin:1em 0 1em 1em;
-        max-width:45%;
-    }
 }
