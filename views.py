@@ -32,8 +32,10 @@ def change_order(request, order=None):
         next = request.GET.get('next', 'index')
         return redirect(next)
     else:
+        order_range = [str(x) for x in range(order_min, order_max + 1)]
         context = { 
-            'range': range(order_min, order_max + 1), 
+            'session': request.session,
+            'order_range': order_range, 
             'next': request.META['HTTP_REFERER'],
         }
         template = 'math/change_order.html'
