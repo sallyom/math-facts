@@ -4,7 +4,7 @@
 
 <ul class="buttons">
     {% for order in order_range %}
-    {% if order == session.order %}
+    {% if order == current_order %}
     <li><span>{{ order }}</span></li>
     {% else %}
     <li><a href="{% url change_order order %}?next={{ next }}">{{ order }}</a></li>

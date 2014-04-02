@@ -32,9 +32,10 @@ def change_order(request, order=None):
         next = request.GET.get('next', 'index')
         return redirect(next)
     else:
-        order_range = [str(x) for x in range(order_min, order_max + 1)]
+        current_order = get_order(request)
+        order_range = range(order_min, order_max + 1)
         context = { 
-            'session': request.session,
+            'current_order': current_order,
             'order_range': order_range, 
             'next': request.META['HTTP_REFERER'],
         }
@@ -102,7 +103,11 @@ def show_flashcard(request, order=None):
 
         
 def post_flashcard(request):
-    term1, operation, term2 = request.POST.get('expression').split()
+    try:
+        term1, operation, term2 = request.POST.get('expression').split()
+    except:
+        return redirect('show_flashcard')
+        
     try:
         answer = int(request.POST.get('answer'))
     except: 
