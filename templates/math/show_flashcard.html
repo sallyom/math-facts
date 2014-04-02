@@ -25,7 +25,9 @@
 
     <div class="feedback">
         <p>&nbsp;</p>
+        {% if session.nbr_attempts %}
         <p>So far: {{ session.nbr_correct }} out of {{ session.nbr_attempts }}.</p>
+        {% endif %}
     </div>
 </div>
 
