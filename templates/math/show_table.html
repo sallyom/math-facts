@@ -23,10 +23,10 @@ td {
 td * {
     background-color:transparent;
 }
-td:hover {
+td:hover, .clicked {
     background-color:yellow;
 }
-.hover {
+.hover, .clickline {
     background-color:#ffc;
 }
 {% endblock %}
@@ -42,6 +42,11 @@ $(function() {
             $(this).parent().removeClass("hover");
             $("col").eq($(this).index()).removeClass("hover");
         }
+    });
+    $("table").delegate('td','click', function(e) {
+        $(this).toggleClass("clicked");
+        $(this).parent().toggleClass("clickline");
+        $("col").eq($(this).index()).toggleClass("clickline");
     });
 });
 {% endblock %}
