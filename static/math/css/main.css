@@ -16,6 +16,97 @@ a:hover {
     text-decoration:underline;
 }
 
+
+#controls h2 {
+    display:none;
+}
+#controls ul{
+    position:absolute;
+    top:0;
+    right:0;
+    padding:0.2em;
+    margin:0;
+    list-style:none;
+    width:4em;
+    overflow-x:scroll;
+    transition:width 100ms;
+    -webkit-transition:width 100ms; /* Safari */
+}
+#controls ul:hover {
+    width:9em !important;
+}
+#controls ul::-webkit-scrollbar { 
+    display: none; 
+}    
+#controls li{
+    display:block;
+    padding-left:3.5em;
+    width:5em;
+    margin:0.5em 0;
+}
+#controls a {
+    padding:0.5em;
+    margin:0;
+    border:1px solid white;
+    display:block;
+    text-align:center;
+    text-decoration:none;
+    background:#e6eefe;
+}
+#controls a:hover {
+    background:#f2f6fe;
+}
+
+/* 
+#controls {
+    padding:0.5em;
+    position:fixed;
+    top:0;
+    right:0;
+    line-height:2em;
+    background:#e6eefe;
+    border-left:1px solid #fff;
+    border-bottom:1px solid #fff;
+    text-align:right;
+}
+#controls h2 {
+    display:none;
+}
+#controls ul {
+    padding:0;
+    margin:0;
+    list-style:none;
+}
+#controls:hover ul {
+    display:block !important;
+}
+#controls li {
+    padding:0;
+    margin:0;
+}
+#controls a {
+    padding:0 1em;
+    margin:0;
+    border:1px solid transparent;
+    display:block;
+}
+*/
+/* 
+#controls a:hover {
+    border-left:1px solid #fff;
+    border-top:1px solid #fff;
+    border-right:1px solid #aaa;
+    border-bottom:1px solid #aaa;
+    text-decoration:none;
+}
+*/
+
+
+
+
+
+
+
 ul.buttons {
     padding-left:0;
 }
@@ -76,6 +167,95 @@ ul.buttons > li > a:hover {
 }
 .fact-blocks table tr:hover {
     background:#FFFFCC;
+}
+
+
+
+
+
+.fact-table {
+    background-color:white;
+    border-spacing:0;
+    border-top:1px solid black;
+    border-left:1px solid black;
+}
+.fact-table th,
+.fact-table td {
+    padding:0;
+    width:2.5em;
+    line-height:2.5em;
+    border-right:1px solid black;
+    border-bottom:1px solid black;
+}
+.fact-table th {
+    background-color:#eee;
+}
+.fact-table td {
+    background-color:transparent;
+}
+.fact-table td * {
+    background-color:transparent;
+}
+.fact-table td:hover {
+    background-color:yellow;
+    cursor:pointer;
+}
+.fact-table .clicked {
+    background-color:yellow;
+}
+.fact-table .clickline {
+    background-color:#ffc;
+}
+.fact-table .hover {}
+
+
+
+
+.flashcard {
+    width:12em;
+    margin:1em auto;
+    text-align:center;
+    line-height:2em;
+}
+.flashcard form {
+    border:1px solid black;
+    padding:1em;
+}
+.flashcard span {
+    display:block;
+    width:6em;
+    margin:0 auto;
+}
+.flashcard input {
+    width:100%;
+    font-family:serif;
+    font-size:100%;
+    text-align:center;
+    outline:none;
+    background:none;
+    border:0;
+}
+.flashcard .answer {
+    border:1px solid black;
+}
+.flashcard button {
+    display:block;
+    line-height:2em;
+    text-align:center;
+    width:5em;
+    margin:1em auto 0;
+}
+.flashcard .feedback {
+    width:10em;
+    margin:1em auto;
+    line-height:2em;
+    text-align:center;
+}
+.flashcard .correct{
+    background:#8f8;
+}
+.flashcard .incorrect{
+    background:#ff8;
 }
 
 /*****************/

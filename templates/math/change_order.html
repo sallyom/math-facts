@@ -2,11 +2,9 @@
 
 {% block main-content %}
 
-<p><a href="{% url index %}">&laquo; Back </a></p>
-
 <ul class="buttons">
     {% for order in range %}
-    <li><a href="{% url facts order %}">{{ order }}</a></li>
+    <li><a href="{% url change_order order %}?next={{ next }}">{{ order }}</a></li>
     {% endfor %}
 </ul>
 

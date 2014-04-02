@@ -1,0 +1,23 @@
+﻿{% extends "math/base.html" %}
+
+{% block main-content %}
+
+<div class="flashcard">
+    <h2>Flash Card</h2>
+    <form method="post" action="{% url post_flashcard %}">
+        <span class="term1">{{ term1 }}</span>
+        <span class="operation">{{ operation }}</span>
+        <span class="term2">{{ term2 }}</span>
+        <span class="equals">=</span>
+        <span class="answer"><input name="answer" type="text" autocomplete="off"></span>
+        <span class="button"><button name="submit">Try it</button></span>
+        
+        <input type="hidden" name="term1" value="{{ term1 }}">
+        <input type="hidden" name="operation" value="{{ operation }}">
+        <input type="hidden" name="term2" value="{{ term2 }}">
+        {% csrf_token %}
+    </form>
+</div>
+
+{% include 'math/controls.html' %}
+{% endblock %}

@@ -29,8 +29,6 @@ function FindFocus()
   }
 }
 
-
-
 $(document).keydown(function(e) {
     var keycode = e.which || e.keyCode;
     var key = String.fromCharCode(keycode).toLowerCase()

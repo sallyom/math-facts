@@ -1,0 +1,26 @@
+﻿{% extends "math/base.html" %}
+
+{% block main-content %}
+
+<div class="flashcard">
+    <h2>Flash Card</h2>
+    <form class="{% if success %}correct{% else %}incorrect{% endif %}" method="post" action="{% url show_flashcard %}">
+        <span class="term1">{{ term1 }}</span>
+        <span class="operation">{{ operation }}</span>
+        <span class="term2">{{ term2 }}</span>
+        <span class="equals">=</span>
+        <span class="answer">{{ answer }}</span>
+        <button name="submit">Next</button>
+        {% csrf_token %}
+    </form>
+    <div class="feedback">
+        {% if success %}
+        <p>This is correct! :)</p>
+        {% else %}
+        <p>The answer is {{ solution }}</p>
+        {% endif %}
+    </div>
+</div>
+
+{% include 'math/controls.html' %}
+{% endblock %}

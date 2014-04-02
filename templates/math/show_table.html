@@ -1,44 +1,8 @@
 ﻿{% extends "math/base.html" %}
 
-{% block extra-style %}
-table {
-    background-color:white;
-    border-spacing:0;
-    border-top:1px solid black;
-    border-left:1px solid black;
-}
-th,td {
-    padding:0;
-    width:2.5em;
-    line-height:2.5em;
-    border-right:1px solid black;
-    border-bottom:1px solid black;
-}
-th {
-    background-color:#eee;
-}
-td {
-    background-color:transparent;
-}
-td * {
-    background-color:transparent;
-}
-td:hover {
-    background-color:yellow;
-    cursor:pointer;
-}
-.clicked {
-    background-color:yellow;
-}
-.clickline {
-    background-color:#ffc;
-}
-.hover {}
-{% endblock %}
-
 {% block extra-script %}
 $(function() {
-    $("td").click(function() {
+    $(".fact-table td").click(function() {
         if ( $(this).hasClass("clicked") ) {
             $("td").removeClass("clicked");
             $("tr").removeClass("clickline");
@@ -52,7 +16,7 @@ $(function() {
             $("col").eq($(this).index()).toggleClass("clickline");
         }
     });
-    $("table").delegate('td','mouseover mouseleave', function(e) {
+    $(".fact-table").delegate('td','mouseover mouseleave', function(e) {
         if (e.type == 'mouseover') {
             $(this).parent().addClass("hover");
             $("col").eq($(this).index()).addClass("hover");
@@ -67,10 +31,10 @@ $(function() {
 
 {% block main-content %}
 
-<p><a href="{% url table %}">&laquo; Back </a></p>
+<p><a href="{% url index %}">&laquo; Back </a></p>
 
 <h2>Addition Table (Order {{ order }})</h2>
-<table>
+<table class="fact-table">
     <colgroup>
         <col>
         {% for term in table.headers %}
@@ -95,4 +59,5 @@ $(function() {
     {% endfor %}
 </table>
 
+{% include 'math/controls.html' %}
 {% endblock %}

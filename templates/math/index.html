@@ -1,17 +1,13 @@
 ﻿{% extends "math/base.html" %}
 
-{% block extra-script %}
-{% endblock %}
-
-{% block extra-style %}
-{% endblock %}
-
 {% block main-content %}
 
 <h2>Navigation</h2>
 <ul>
     <li><a href="{% url facts %}">Math Facts List</a></li>
     <li><a href="{% url table %}">Addition Tables</a></li>
+    <li><a href="{% url show_flashcard %}">Show Flash Cards</a></li>
+    <li><a href="{% url change_order %}">Change Order</a></li>
 </ul>
 
 {% include 'math/mathjax.html' %}
