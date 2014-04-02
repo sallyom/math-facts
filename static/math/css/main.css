@@ -213,22 +213,41 @@ ul.buttons > li > a:hover {
 
 
 .flashcard {
-    width:12em;
+    width:10em;
     margin:1em auto;
     text-align:center;
-    line-height:2em;
+    font-size:200%
 }
-.flashcard form {
+.flashcard .card {
     border:1px solid blue;
     background:#f2f6fe;
     padding:1em;
 }
-.flashcard span {
+.flashcard .expression {
+    display:inline-block;
+    margin:0 auto;
+    padding:0 1em;
+}
+.flashcard .term1 ,
+.flashcard .operation ,
+.flashcard .term2 ,
+.flashcard .equals {
+    display:block;
+    text-align:center;
+    line-height:1.5em;
+}
+/* .flashcard .argument {} */
+/* .flashcard .function {} */
+/* .flashcard .equals { display: none; } */
+.flashcard .answer {
     display:block;
     width:6em;
-    margin:0 auto;
+    line-height:2em;
+    margin:0em auto;
+    border:1px solid blue;
+    background:#f2f6fe;
 }
-.flashcard input {
+.flashcard .answer input {
     width:100%;
     font-family:serif;
     font-size:100%;
@@ -237,16 +256,12 @@ ul.buttons > li > a:hover {
     background:none;
     border:0;
 }
-.flashcard .answer {
-    border:1px solid blue;
-    background:white;
-}
 .flashcard button {
     display:block;
     line-height:2em;
     text-align:center;
     width:5em;
-    margin:1em auto 0;
+    margin:2em auto 0;
 }
 .flashcard .feedback {
     width:10em;

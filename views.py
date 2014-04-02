@@ -91,24 +91,31 @@ def show_flashcard(request, order=None):
         'operation': '+',
     }
     
-    context = flashcard
+    context = {
+        'session': request.session,
+    }
+    context.update(flashcard)
     template = 'math/show_flashcard.html'
     return render(request, template, context)
 
         
 def post_flashcard(request):
-    term1 = int(request.POST.get('term1'))
-    term2 = int(request.POST.get('term2'))
-    operation = request.POST.get('operation')
+    term1, operation, term2 = request.POST.get('expression').split()
     try:
         answer = int(request.POST.get('answer'))
     except: 
         answer = None
 
-    if operation == '+':
+    term1 = int(term1)
+    term2 = int(term2)
+    if operation in  ['+']:
         solution = term1 + term2
-    elif operation == '-':
+    elif operation in ['-', '−', '\u2212']:
         solution = term1 - term2
+    elif operation in ['×', '*', '\u00D7']:
+        solution = term1 * term2
+    elif operation in ['/', '÷', '\u00F7']:
+        solution = int(term1 / term2) # may have to do something special here
     else:
         solution = None
         
@@ -123,20 +130,19 @@ def post_flashcard(request):
     request.session['nbr_correct'] = nbr_correct
     
     context = {
+        'session': request.session,
         'term1': term1,
         'term2': term2,
         'operation': operation,
         'solution': solution,
         'answer': answer,
         'success': success,
-        'nbr_attempts': nbr_attempts,
-        'nbr_correct': nbr_correct,
     }
     template = 'math/post_flashcard.html'
     return render(request, template, context)
    
    
-def reset_flashcard_cookie(request):
+def reset_flashcard_stats(request):
     request.session['nbr_attempts'] = 0
     request.session['nbr_correct'] = 0
     return redirect('show_flashcard')
