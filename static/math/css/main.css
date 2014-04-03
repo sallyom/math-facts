@@ -220,7 +220,7 @@ ul.buttons > li > a:hover {
 
 
 .flashcard {
-    width:10em;
+    width:12em;
     margin:1em auto;
     text-align:center;
 }
@@ -242,6 +242,10 @@ ul.buttons > li > a:hover {
     text-align:center;
     line-height:1.5em;
 }
+.flashcard .term1 ,
+.flashcard .term2 {
+    font-weight:bold;
+}
 /* .flashcard .argument {} */
 /* .flashcard .function {} */
 /* .flashcard .equals { display: none; } */
@@ -249,7 +253,7 @@ ul.buttons > li > a:hover {
     display:block;
     width:6em;
     line-height:2em;
-    margin:0em auto;
+    margin:0.5em auto;
     border:1px solid blue;
     background:#f2f6fe;
 }
@@ -275,13 +279,13 @@ ul.buttons > li > a:hover {
     line-height:1.5em;
     text-align:center;
 }
-.flashcard form.correct,
-.flashcard form.correct .answer {
+.flashcard .card.correct,
+.flashcard .card.correct .answer {
     border:1px solid green;
     background:#d3efd3;
 }
-.flashcard form.incorrect,
-.flashcard form.incorrect .answer {
+.flashcard .card.incorrect,
+.flashcard .card.incorrect .answer {
     border:1px solid orange;
     background:#ffedcc;
 }

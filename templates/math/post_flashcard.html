@@ -4,7 +4,7 @@
 
 <div class="flashcard">
     <h2>Flash Cards</h2>
-    <form class="card {% if success %}correct{% else %}incorrect{% endif %}" method="post" action="{% url show_flashcard %}">
+    <form class="card {% if success %}correct{% else %}incorrect{% endif %}">
         <span class="expression">
             <span class="argument">
                 <span class="term1">{{ term1 }}</span>
@@ -16,9 +16,7 @@
         </span>
         <span class="equals">=</span>
         <span class="answer">{{ answer }}</span>
-        <button name="submit">Next</button>
-        <input type="hidden" name="expression" value="{{ term1 }} {{ operation }} {{ term2 }}">
-        {% csrf_token %}
+        <button onclick="location.href='{% url show_flashcard %}'">Next</button>
     </form>
 
     <div class="feedback">
