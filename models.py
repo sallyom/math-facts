@@ -1,6 +1,12 @@
 ﻿from __future__ import division
 from __future__ import unicode_literals
 
+
+
+# # MathFact.objects.get(pk=blah)
+
+
+
 # class Flashcard(object):
     # def __init__(self, term1, term2, operation, answer):
         # self.term1 = int(term1)

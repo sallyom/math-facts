@@ -8,15 +8,15 @@ from django.shortcuts import render
 
 from models import *
 
-order_min = 0
-order_max = 12
+magnitude_min = 0
+magnitude_max = 12
 
-def get_order(request):
+def get_magnitude(request):
     try:
-        return int(request.session['order'])
+        return int(request.session['magnitude'])
     except:
-        return order_max
-    return request.session.get('order', order_max)
+        return magnitude_max
+    return request.session.get('magnitude', magnitude_max)
 
 ## ------------------------------------------------------ ##
     
@@ -26,26 +26,26 @@ def index(request):
     return render(request, template, context)
 
 
-def change_order(request, order=None):
-    if order:
-        request.session['order'] = order
+def change_magnitude(request, magnitude=None):
+    if magnitude:
+        request.session['magnitude'] = magnitude
         next = request.GET.get('next', 'index')
         return redirect(next)
     else:
-        current_order = get_order(request)
-        order_range = range(order_min, order_max + 1)
+        current_magnitude = get_magnitude(request)
+        magnitude_range = range(magnitude_min, magnitude_max + 1)
         context = { 
-            'current_order': current_order,
-            'order_range': order_range, 
+            'current_magnitude': current_magnitude,
+            'magnitude_range': magnitude_range, 
             'next': request.META['HTTP_REFERER'],
         }
-        template = 'math/change_order.html'
+        template = 'math/change_magnitude.html'
         return render(request, template, context)
     
     
-def show_facts(request, order=None):
-    order = get_order(request)
-    terms = range(0, order + 1)
+def show_facts(request, magnitude=None):
+    magnitude = get_magnitude(request)
+    terms = range(0, magnitude + 1)
 
     facts = []
     for term1 in terms:
@@ -53,16 +53,16 @@ def show_facts(request, order=None):
             facts.append((term1, term2, term1 + term2))
             
     context = { 
-        'order': order, 
+        'magnitude': magnitude, 
         'facts': facts, 
     }
     template = 'math/show_facts.html'
     return render(request, template, context)
 
     
-def show_table(request, order=None):
-    order = get_order(request)
-    terms = range(0, order + 1)
+def show_table(request, magnitude=None):
+    magnitude = get_magnitude(request)
+    terms = range(0, magnitude + 1)
 
     table = { 
         'corner': '+', 
@@ -78,19 +78,19 @@ def show_table(request, order=None):
         table['rows'].append({ 'term': term1, 'sums': sums })
     
     context = { 
-        'order': order, 
+        'magnitude': magnitude, 
         'table': table, 
     }
     template = 'math/show_table.html'
     return render(request, template, context)
         
         
-def show_flashcard(request, order=None):
-    order = get_order(request)
+def show_flashcard(request, magnitude=None):
+    magnitude = get_magnitude(request)
     
     flashcard = {
-        'term1': random.choice(range(order + 1)), 
-        'term2': random.choice(range(order + 1)), 
+        'term1': random.choice(range(magnitude + 1)), 
+        'term2': random.choice(range(magnitude + 1)), 
         'operation': '+',
     }
     
