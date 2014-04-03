@@ -243,7 +243,9 @@ ul.buttons > li > a:hover {
     line-height:1.5em;
 }
 .flashcard .term1 ,
-.flashcard .term2 {
+.flashcard .term2 ,
+.flashcard .answer ,
+.flashcard .answer * {
     font-weight:bold;
 }
 /* .flashcard .argument {} */
