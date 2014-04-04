@@ -10,12 +10,13 @@ from models import *
 
 magnitude_min = 0
 magnitude_max = 12
+magnitude_default = 5
 
 def get_magnitude(request):
     try:
         return int(request.session['magnitude'])
     except:
-        return magnitude_max
+        return magnitude_default
     return request.session.get('magnitude', magnitude_max)
 
 ## ------------------------------------------------------ ##
