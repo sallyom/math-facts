@@ -1,0 +1,15 @@
+﻿{% extends "math/base.html" %}
+
+{% block main-content %}
+
+<ul class="buttons">
+    {% for magnitude in magnitude_range %}
+    {% if magnitude == current_magnitude %}
+    <li><span>{{ magnitude }}</span></li>
+    {% else %}
+    <li><a href="{% url change_magnitude magnitude %}?next={{ next }}">{{ magnitude }}</a></li>
+    {% endif %}
+    {% endfor %}
+</ul>
+
+{% endblock %}
