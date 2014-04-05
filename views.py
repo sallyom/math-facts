@@ -20,7 +20,7 @@ def get_magnitude(request):
     return request.session.get('magnitude', magnitude_max)
 
 ## ------------------------------------------------------ ##
-    
+
 def index(request):
     context = {}
     template = 'math/index.html'
@@ -35,15 +35,70 @@ def change_magnitude(request, magnitude=None):
     else:
         current_magnitude = get_magnitude(request)
         magnitude_range = range(magnitude_min, magnitude_max + 1)
-        context = { 
+        context = {
             'current_magnitude': current_magnitude,
-            'magnitude_range': magnitude_range, 
+            'magnitude_range': magnitude_range,
             'next': request.META['HTTP_REFERER'],
         }
         template = 'math/change_magnitude.html'
         return render(request, template, context)
-    
-    
+
+
+def show_flashcard(request, magnitude=None):
+    session = request.session
+    if 'evaluate' in session:
+        del session['evaluate']
+        session = request.session
+        flashcard = flashcards[session['expression']]
+
+        try:
+            proposed_answer = int(session['proposal'])
+        except:
+            proposed_answer = None
+
+        success = ( proposed_answer == flashcard.answer )
+
+        session['nbr_attempts'] = session.get('nbr_attempts', 0) + 1
+        session['nbr_correct'] = session.get('nbr_correct', 0) + success
+
+        context = {
+            'term1': flashcard.term1,
+            'term2': flashcard.term2,
+            'operation': flashcard.operation,
+            'answer': flashcard.answer,
+            'success': success,
+        }
+        context.update(session)
+        template = 'math/show_flashcard_result.html'
+    else:
+        magnitude = get_magnitude(request)
+        context = {
+            'term1': random.choice(range(magnitude + 1)),
+            'term2': random.choice(range(magnitude + 1)),
+            'operation': '+',
+        }
+        context.update(session)
+        template = 'math/show_flashcard.html'
+
+    return render(request, template, context)
+
+
+def post_flashcard(request):
+    request.session['evaluate'] = True
+    request.session['expression'] = request.POST['expression']
+    try:
+        request.session['proposal'] = int(request.POST['proposal'])
+    except:
+        request.session['proposal'] = None
+    return redirect('show_flashcard')
+
+
+def reset_flashcard_stats(request):
+    del request.session['nbr_attempts']
+    del request.session['nbr_correct']
+    return redirect('show_flashcard')
+
+
 def show_facts(request, magnitude=None):
     magnitude = get_magnitude(request)
     terms = range(0, magnitude + 1)
@@ -52,21 +107,21 @@ def show_facts(request, magnitude=None):
     for term1 in terms:
         for term2 in range(term1 + 1):
             facts.append((term1, term2, term1 + term2))
-            
-    context = { 
-        'magnitude': magnitude, 
-        'facts': facts, 
+
+    context = {
+        'magnitude': magnitude,
+        'facts': facts,
     }
     template = 'math/show_facts.html'
     return render(request, template, context)
 
-    
+
 def show_table(request, magnitude=None):
     magnitude = get_magnitude(request)
     terms = range(0, magnitude + 1)
 
-    table = { 
-        'corner': '+', 
+    table = {
+        'corner': '+',
         'headers': [],
         'rows': [],
     }
@@ -77,75 +132,10 @@ def show_table(request, magnitude=None):
         for term2 in terms:
             sums.append(term1 + term2)
         table['rows'].append({ 'term': term1, 'sums': sums })
-    
-    context = { 
-        'magnitude': magnitude, 
-        'table': table, 
+
+    context = {
+        'magnitude': magnitude,
+        'table': table,
     }
     template = 'math/show_table.html'
     return render(request, template, context)
-        
-        
-def show_flashcard(request, magnitude=None):
-    magnitude = get_magnitude(request)
-    
-    flashcard = {
-        'term1': random.choice(range(magnitude + 1)), 
-        'term2': random.choice(range(magnitude + 1)), 
-        'operation': '+',
-    }
-    
-    context = {
-        'session': request.session,
-    }
-    context.update(flashcard)
-    template = 'math/show_flashcard_0.html'
-    return render(request, template, context)
-
-        
-def post_flashcard(request):
-    # try:
-    if 1==1:
-        expression = request.POST['expression']
-        # flashcard = Flashcard.objects.get(expression=expression)
-        flashcard = flashcards[expression]
-    # except:
-        # return redirect('show_flashcard')
-        
-    try:
-        proposal = int(request.POST.get('proposal'))
-    except: 
-        proposal = None
-
-    term1 = flashcard.term1
-    term2 = flashcard.term2
-    operation = flashcard.operation
-    answer = flashcard.answer
-        
-    success = ( proposal == answer )
-
-    # increment cookie ...
-    
-    nbr_attempts = request.session.get('nbr_attempts', 0) + 1
-    nbr_correct = request.session.get('nbr_correct', 0) + success
-    
-    request.session['nbr_attempts'] = nbr_attempts
-    request.session['nbr_correct'] = nbr_correct
-    
-    context = {
-        'session': request.session,
-        'term1': term1,
-        'term2': term2,
-        'operation': operation,
-        'proposal': proposal,
-        'answer': answer,
-        'success': success,
-    }
-    template = 'math/post_flashcard.html'
-    return render(request, template, context)
-   
-   
-def reset_flashcard_stats(request):
-    request.session['nbr_attempts'] = 0
-    request.session['nbr_correct'] = 0
-    return redirect('show_flashcard')

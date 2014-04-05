@@ -15,8 +15,8 @@
             </span>
         </span>
         <span class="equals">=</span>
-        <span class="answer">
-            <input type="number" name="answer" autocomplete="off" pattern="[0-9]*">
+        <span class="proposal">
+            <input type="number" name="proposal" autocomplete="off" pattern="[0-9]*" autofocus>
         </span>
         <button name="submit">Try it</button>
         <input type="hidden" name="expression" value="{{ term1 }} {{ operation }} {{ term2 }}">
@@ -25,8 +25,8 @@
 
     <div class="feedback">
         <p>&nbsp;</p>
-        {% if session.nbr_attempts %}
-        <p>So far: {{ session.nbr_correct }} out of {{ session.nbr_attempts }}.</p>
+        {% if nbr_attempts %}
+        <p>So far, {{ nbr_correct }} out of {{ nbr_attempts }}.</p>
         {% endif %}
     </div>
 </div>

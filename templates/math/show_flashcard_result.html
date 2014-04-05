@@ -15,17 +15,17 @@
             </span>
         </span>
         <span class="equals">=</span>
-        <span class="answer">{{ answer }}</span>
-        <button onclick="location.href='{% url show_flashcard %}'">Next</button>
+        <span class="proposal">{{ proposal }}</span>
+        <button type="button" onclick="location.href='{% url show_flashcard %}'" autofocus>Next</button>
     </form>
 
     <div class="feedback">
         {% if success %}
         <p>This is correct!</p>
         {% else %}
-        <p>The answer is {{ solution }}.</p>
+        <p>The answer is {{ answer }}.</p>
         {% endif %}
-        <p>So far: {{ session.nbr_correct }} out of {{ session.nbr_attempts }}.</p>
+        <p>So far, {{ nbr_correct }} out of {{ nbr_attempts }}.</p>
     </div>
 </div>
 

@@ -249,14 +249,14 @@ ul.buttons > li > a:hover {
 }
 .flashcard .term1 ,
 .flashcard .term2 ,
-.flashcard .answer ,
-.flashcard .answer * {
+.flashcard .proposal ,
+.flashcard .proposal * {
     font-weight:bold;
 }
 /* .flashcard .argument {} */
 /* .flashcard .function {} */
 /* .flashcard .equals { display: none; } */
-.flashcard .answer {
+.flashcard .proposal {
     display:block;
     width:6em;
     line-height:2em;
@@ -264,7 +264,7 @@ ul.buttons > li > a:hover {
     border:1px solid blue;
     background:#f2f6fe;
 }
-.flashcard .answer input {
+.flashcard .proposal input {
     width:100%;
     font-family:serif;
     font-size:100%;
@@ -287,12 +287,12 @@ ul.buttons > li > a:hover {
     text-align:center;
 }
 .flashcard .card.correct,
-.flashcard .card.correct .answer {
+.flashcard .card.correct .proposal {
     border:1px solid green;
     background:#d3efd3;
 }
 .flashcard .card.incorrect,
-.flashcard .card.incorrect .answer {
+.flashcard .card.incorrect .proposal {
     border:1px solid orange;
     background:#ffedcc;
 }
