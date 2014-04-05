@@ -16,6 +16,11 @@ a:hover {
     text-decoration:underline;
 }
 
+input[type=number]::-webkit-inner-spin-button ,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance:none;
+    margin:0;
+}
 
 #controls h2 {
     display:none;
@@ -35,9 +40,9 @@ a:hover {
 #controls ul:hover {
     width:11em !important;
 }
-#controls ul::-webkit-scrollbar { 
-    display: none; 
-}    
+#controls ul::-webkit-scrollbar {
+    display: none;
+}
 #controls li{
     display:block;
     padding-left:5.5em;
@@ -58,7 +63,7 @@ a:hover {
     background:#f2f6fe;
 }
 
-/* 
+/*
 #controls {
     padding:0.5em;
     position:fixed;
@@ -92,7 +97,7 @@ a:hover {
     display:block;
 }
 */
-/* 
+/*
 #controls a:hover {
     border-left:1px solid #fff;
     border-top:1px solid #fff;
@@ -115,7 +120,7 @@ ul.buttons > li {
     list-style:none;
     display:inline;
     margin:0;
-    
+
 }
 ul.buttons > li > a ,
 ul.buttons > li > span {
