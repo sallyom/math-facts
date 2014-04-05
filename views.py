@@ -99,35 +99,30 @@ def show_flashcard(request, magnitude=None):
         'session': request.session,
     }
     context.update(flashcard)
-    template = 'math/show_flashcard.html'
+    template = 'math/show_flashcard_0.html'
     return render(request, template, context)
 
         
 def post_flashcard(request):
-    try:
-        term1, operation, term2 = request.POST.get('expression').split()
-    except:
-        return redirect('show_flashcard')
+    # try:
+    if 1==1:
+        expression = request.POST['expression']
+        # flashcard = Flashcard.objects.get(expression=expression)
+        flashcard = flashcards[expression]
+    # except:
+        # return redirect('show_flashcard')
         
     try:
-        answer = int(request.POST.get('answer'))
+        proposal = int(request.POST.get('proposal'))
     except: 
-        answer = None
+        proposal = None
 
-    term1 = int(term1)
-    term2 = int(term2)
-    if operation in  ['+']:
-        solution = term1 + term2
-    elif operation in ['-', '−', '\u2212']:
-        solution = term1 - term2
-    elif operation in ['×', '*', '\u00D7']:
-        solution = term1 * term2
-    elif operation in ['/', '÷', '\u00F7']:
-        solution = int(term1 / term2) # may have to do something special here
-    else:
-        solution = None
+    term1 = flashcard.term1
+    term2 = flashcard.term2
+    operation = flashcard.operation
+    answer = flashcard.answer
         
-    success = ( answer == solution )
+    success = ( proposal == answer )
 
     # increment cookie ...
     
@@ -142,7 +137,7 @@ def post_flashcard(request):
         'term1': term1,
         'term2': term2,
         'operation': operation,
-        'solution': solution,
+        'proposal': proposal,
         'answer': answer,
         'success': success,
     }

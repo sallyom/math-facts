@@ -1,22 +1,50 @@
 ﻿from __future__ import division
 from __future__ import unicode_literals
 
+class Flashcard(object):
+    def __init__(self, expression):
+        term1, operation, term2 = expression.split()
 
+        self.term1 = int(term1)
+        self.term2 = int(term2)
 
-# # MathFact.objects.get(pk=blah)
-
-
-
-# class Flashcard(object):
-    # def __init__(self, term1, term2, operation, answer):
-        # self.term1 = int(term1)
-        # self.term2 = int(term2)
-        # self.operation = operation
-        # self.answer = int(answer)
+        if operation in  ['+']:
+            self.operation = '+'
+        elif operation in ['-', '−', '\u2212']:
+            self.operation = '-'
+        elif operation in ['×', '*', '\u00D7']:
+            self.operation = '*'
+        elif operation in ['/', '÷', '\u00F7']:
+            self.operation = '/'
         
-        # if operation == '+':
-            # self.solution = self.term1 + self.term2
-        # elif operation == '*':
-            # self.solution = self.term1 - self.term2
+    @property
+    def answer(self):
+        if self.operation == '+':
+            answer = self.term1 + self.term2
+        elif self.operation == '-':
+            answer = self.term1 - self.term2
+        elif self.operation == '*':
+            answer = self.term1 * self.term2
+        elif self.operation == '/': 
+            answer = int(self.term1 / self.term2) # may have to do something special here
+        else:
+            answer = None
+        return answer
+
+magnitude = 5
+operations = ['+-', '*/']
+
+flashcards = {}
+for operation in operations:
+    for term1 in range(magnitude + 1):
+        for term2 in range(magnitude + 1):
+            # create primary flashcard
+            expression = ' '.join([str(term1), operation[0], str(term2)])
+            flashcard = Flashcard(expression)
+            flashcards[expression] = flashcard
             
-    # def 
+            # create inverse flashcard
+            expression = ' '.join([str(flashcard.answer), operation[1], str(term2)])
+            flashcard = Flashcard(expression)
+            flashcards[expression] = flashcard
+            

@@ -4,7 +4,7 @@
 
 <div class="flashcard">
     <h2>Flash Cards</h2>
-    <div class="card {% if success %}correct{% else %}incorrect{% endif %}">
+    <form class="card {% if success %}correct{% else %}incorrect{% endif %}">
         <span class="expression">
             <span class="argument">
                 <span class="term1">{{ term1 }}</span>
@@ -17,7 +17,7 @@
         <span class="equals">=</span>
         <span class="answer">{{ answer }}</span>
         <button onclick="location.href='{% url show_flashcard %}'">Next</button>
-    </div>
+    </form>
 
     <div class="feedback">
         {% if success %}
@@ -25,8 +25,7 @@
         {% else %}
         <p>The answer is {{ solution }}.</p>
         {% endif %}
-        <p>So far, {{ nbr_correct }} out of {{ nbr_attempts }}.</p>
-        <p><a href="{% url reset_flashcard_stats %}">Reset counter</a></p>
+        <p>So far: {{ session.nbr_correct }} out of {{ session.nbr_attempts }}.</p>
     </div>
 </div>
 
