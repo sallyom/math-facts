@@ -10,7 +10,7 @@
                 <span class="term1">{{ term1 }}</span>
             </span>
             <span class="function">
-                <span class="operation">{{ operation }}</span>
+                <span class="operation">{{ operation.display }}</span>
                 <span class="term2">{{ term2 }}</span>
             </span>
         </span>
@@ -26,8 +26,9 @@
         <p>The answer is {{ answer }}.</p>
         {% endif %}
         <p>So far, {{ nbr_correct }} out of {{ nbr_attempts }}.</p>
+        <p><a href="{% url reset_stats %}">Reset stats</a></p>
     </div>
 </div>
 
-{% include 'math/controls.html' %}
+{% include "math/controls.html" %}
 {% endblock %}

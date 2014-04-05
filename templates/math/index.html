@@ -5,10 +5,11 @@
 <h2>Navigation</h2>
 <ul>
     <li><a href="{% url show_flashcard %}">Flash Cards</a></li>
-    <li><a href="{% url facts %}">Math Facts List</a></li>
-    <li><a href="{% url table %}">Addition Tables</a></li>
-    <li><a href="{% url change_magnitude %}">Change Magnitude</a></li>
+    <li><a href="{% url control_panel %}">Control Panel</a></li>
+<ul>
+</ul>
+    <li><a href="{% url facts %}">Math Fact List</a></li>
+    <li><a href="{% url table %}">Math Fact Table</a></li>
 </ul>
 
-{% include 'math/mathjax.html' %}
 {% endblock %}

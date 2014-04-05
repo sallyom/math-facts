@@ -7,16 +7,16 @@
 <div class="fact-blocks">
     <table>
         <tr>
-            <td class="operation">{{ fact.0 }} + {{ fact.1 }}</td>
-            <td class="result">{{ fact.2 }}</td>
+            <td class="operation">{{ fact.term1 }} {{ operation.display }} {{ fact.term2 }}</td>
+            <td class="result">{{ fact.answer }}</td>
         </tr>
         <tr>
-            <td class="operation">{{ fact.1 }} + {{ fact.0 }}</td>
-            <td class="result">{{ fact.2 }}</td>
+            <td class="operation">{{ fact.term2 }} {{ operation.display }} {{ fact.term1 }}</td>
+            <td class="result">{{ fact.answer }}</td>
         </tr>
     </table>
 </div>
 {% endfor %}
 
-{% include 'math/controls.html' %}
+{% include "math/controls.html" %}
 {% endblock %}

@@ -3,21 +3,27 @@ from __future__ import unicode_literals
 
 import random
 
+from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.shortcuts import render
 
 from models import *
 
-magnitude_min = 0
-magnitude_max = 12
-magnitude_default = 5
+## ------------------------------------------------------ ##
 
-def get_magnitude(request):
+def get_controls(session):
     try:
-        return int(request.session['magnitude'])
+        magnitude = int(session['magnitude'])
     except:
-        return magnitude_default
-    return request.session.get('magnitude', magnitude_max)
+        magnitude = magnitude_default
+    if 'magnitude' not in session:
+        session['magnitude'] = magnitude
+
+    operation = session.get('operation', operation_default)
+    if 'operation' not in session:
+        session['operation'] = operation
+
+    return magnitude, operation
 
 ## ------------------------------------------------------ ##
 
@@ -27,24 +33,42 @@ def index(request):
     return render(request, template, context)
 
 
-def change_magnitude(request, magnitude=None):
-    if magnitude:
-        request.session['magnitude'] = magnitude
-        next = request.GET.get('next', 'index')
-        return redirect(next)
+def control_panel(request):
+    session = request.session
+    magnitude, operation = get_controls(session)
+
+    if 'next' in request.GET:
+        next = request.GET['next']
     else:
-        current_magnitude = get_magnitude(request)
-        magnitude_range = range(magnitude_min, magnitude_max + 1)
-        context = {
-            'current_magnitude': current_magnitude,
-            'magnitude_range': magnitude_range,
-            'next': request.META['HTTP_REFERER'],
-        }
-        template = 'math/change_magnitude.html'
-        return render(request, template, context)
+        next = request.META.get('HTTP_REFERER', reverse('index'))
+    print next
+
+    context = {
+        'current_magnitude': magnitude,
+        'magnitude_range': magnitude_range,
+        'current_operation': operation,
+        'operation_list': operation_list,
+        'next': next,
+    }
+    template = 'math/control_panel.html'
+    return render(request, template, context)
 
 
-def show_flashcard(request, magnitude=None):
+def change_controls(request, key, value):
+    if key == 'operation':
+        for operation in operation_list:
+            if operation['name'] == value:
+                break
+        value = operation
+    request.session[key] = value
+
+    next = request.GET['next']
+    response = redirect('control_panel')
+    response['Location'] += '?next={}'.format(next)
+    return response
+
+
+def show_flashcard(request):
     session = request.session
     if 'evaluate' in session:
         del session['evaluate']
@@ -71,13 +95,13 @@ def show_flashcard(request, magnitude=None):
         context.update(session)
         template = 'math/show_flashcard_result.html'
     else:
-        magnitude = get_magnitude(request)
+        magnitude, operation = get_controls(session)
         context = {
             'term1': random.choice(range(magnitude + 1)),
             'term2': random.choice(range(magnitude + 1)),
-            'operation': '+',
         }
         context.update(session)
+        print context
         template = 'math/show_flashcard.html'
 
     return render(request, template, context)
@@ -93,49 +117,55 @@ def post_flashcard(request):
     return redirect('show_flashcard')
 
 
-def reset_flashcard_stats(request):
+def reset_stats(request):
     del request.session['nbr_attempts']
     del request.session['nbr_correct']
     return redirect('show_flashcard')
 
 
-def show_facts(request, magnitude=None):
-    magnitude = get_magnitude(request)
+def show_facts(request):
+    session = request.session
+    magnitude, operation = get_controls(session)
     terms = range(0, magnitude + 1)
 
     facts = []
     for term1 in terms:
         for term2 in range(term1 + 1):
-            facts.append((term1, term2, term1 + term2))
+            expression = ' '.join([term1, operation, term2])
+            flashcard = flashcards(expression)
+            facts.append(flashcard)
 
     context = {
-        'magnitude': magnitude,
         'facts': facts,
     }
+    context.update(session)
     template = 'math/show_facts.html'
     return render(request, template, context)
 
 
 def show_table(request, magnitude=None):
-    magnitude = get_magnitude(request)
+    session = request.session
+    magnitude, operation = get_controls(session)
     terms = range(0, magnitude + 1)
 
     table = {
-        'corner': '+',
+        'corner': operation['display'],
         'headers': [],
         'rows': [],
     }
 
     for term1 in terms:
         table['headers'].append(term1)
-        sums = []
+        facts = []
         for term2 in terms:
-            sums.append(term1 + term2)
-        table['rows'].append({ 'term': term1, 'sums': sums })
+            expression = ' '.join([term1, operation, term2])
+            flashcard = flashcards(expression)
+            facts.append(flashcard.answer)
+        table['rows'].append({ 'term': term1, 'facts': facts })
 
     context = {
-        'magnitude': magnitude,
         'table': table,
     }
+    context.update(session)
     template = 'math/show_table.html'
     return render(request, template, context)

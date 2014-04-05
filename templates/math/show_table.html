@@ -39,7 +39,7 @@ $(function() {
         <col>
         {% endfor %}
     </colgroup>
-    
+
     <tr>
         <th>{{ table.corner }}</th>
         {% for term in table.headers %}
@@ -50,12 +50,12 @@ $(function() {
     {% for row in table.rows %}
     <tr>
         <th>{{ row.term }}</th>
-        {% for sum in row.sums %}
-        <td>{{ sum }}</td>
+        {% for fact in row.facts %}
+        <td>{{ fact }}</td>
         {% endfor %}
     </tr>
     {% endfor %}
 </table>
 
-{% include 'math/controls.html' %}
+{% include "math/controls.html" %}
 {% endblock %}
