@@ -51,6 +51,12 @@ class Flashcard(object):
             answer = None
         return answer
 
+#     @property
+#     def inverse(self):
+#         if self.operation.inverse_of:
+#             expression = ' '.join([self.answer, self.operation.inverse_of, term2])
+#             return flashcards[expression]
+#         return None
 
 
 mag = 20
