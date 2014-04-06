@@ -7,14 +7,19 @@ class Operation(object):
         self.name = name
         self.ascii = ascii
         self.symbol = symbol
-        self.inverse_of = inverse_of
+        self.inverse = inverse_of
+        self.is_primary = ( inverse_of == None )
+
+        if inverse_of:
+            self.inverse.inverse = self
+
 
 add = Operation('addition', '+', '+')
-sub = Operation('subtraction', '-' , '−', inverse_of=add),
+sub = Operation('subtraction', '-' , '−', inverse_of=add)
 mul = Operation('multiplication', '*' , '×')
-div = Operation('division', '/' , '÷', inverse_of=mul),
+div = Operation('division', '/' , '÷', inverse_of=mul)
 
-operation_list = [add, mul]
+operation_list = [add, sub, mul, div]
 operation_default = mul
 
 ## ------------------------------------------------------ ##
@@ -23,16 +28,14 @@ magnitude_range = range(13) # this is 0 to 12
 magnitude_default = 5
 
 class Flashcard(object):
-    def __init__(self, expression):
-        term1, operation_ascii, term2 = expression.split()
-
+    def __init__(self, term1, term2, operation):
         self.term1 = int(term1)
         self.term2 = int(term2)
-
-        for operation in operation_list:
-            if operation.ascii == operation_ascii:
-                break
         self.operation = operation
+
+    @property
+    def expression(self):
+        return ' '.join([self.term1, self.operation.ascii, self.term2])
 
     @property
     def answer(self):
@@ -51,28 +54,26 @@ class Flashcard(object):
             answer = None
         return answer
 
-#     @property
-#     def inverse(self):
-#         if self.operation.inverse_of:
-#             expression = ' '.join([self.answer, self.operation.inverse_of, term2])
-#             return flashcards[expression]
-#         return None
+    @property
+    def inverse(self):
+        if self.operation.inverse_of:
+            return Flashcard(self.answer, self.term2, self.operation.inverse_of)
+        return None
 
 
-mag = 20
-ops = ['+-', '*/']
-
-flashcards = {}
-for op in ops:
-    for term1 in range(mag + 1):
-        for term2 in range(mag + 1):
-            # create primary flashcard
-            expression = ' '.join([str(term1), op[0], str(term2)])
-            flashcard = Flashcard(expression)
-            flashcards[expression] = flashcard
-
-            # create inverse flashcard
-            expression = ' '.join([str(flashcard.answer), op[1], str(term2)])
-            flashcard = Flashcard(expression)
-            flashcards[expression] = flashcard
-
+# mag = 20
+#
+# flashcards = {}
+# for operation in operation_list:
+#     for term1 in range(mag + 1):
+#         for term2 in range(mag + 1):
+#             # create primary flashcard
+#             expression = ' '.join([str(term1), op[0], str(term2)])
+#             flashcard = Flashcard(expression)
+#             flashcards[expression] = flashcard
+#
+#             # create inverse flashcard
+#             expression = ' '.join([str(flashcard.answer), op[1], str(term2)])
+#             flashcard = Flashcard(expression)
+#             flashcards[expression] = flashcard
+#

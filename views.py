@@ -72,7 +72,11 @@ def show_flashcard(request):
     if 'evaluate' in session:
         del session['evaluate']
         session = request.session
-        flashcard = flashcards[session['expression']]
+        term1, ascii, term2 = session['expression'].split()
+        for operation in operation_list:
+            if operation.ascii == ascii:
+                break
+        flashcard = Flashcard(term1, term2, operation)
 
         try:
             proposed_answer = int(session['proposal'])
@@ -85,9 +89,9 @@ def show_flashcard(request):
         session['nbr_correct'] = session.get('nbr_correct', 0) + success
 
         context = {
-            'term1': flashcard.term1,
-            'term2': flashcard.term2,
-            'operation': flashcard.operation,
+            'term1': term1,
+            'term2': term2,
+            'operation': operation,
             'answer': flashcard.answer,
             'success': success,
         }
@@ -95,9 +99,16 @@ def show_flashcard(request):
         template = 'math/show_flashcard_result.html'
     else:
         magnitude, operation = get_controls(session)
+        term1 = random.choice(range(magnitude + 1))
+        term2 = random.choice(range(magnitude + 1))
+
+        if not operation.is_primary:
+            primary_flashcard = Flashcard(term1, term2, operation.inverse)
+            term1 = primary_flashcard.answer
+
         context = {
-            'term1': random.choice(range(magnitude + 1)),
-            'term2': random.choice(range(magnitude + 1)),
+            'term1': term1,
+            'term2': term2,
         }
         context.update(session)
         template = 'math/show_flashcard.html'
@@ -129,8 +140,7 @@ def show_facts(request):
     facts = []
     for term1 in terms:
         for term2 in range(term1 + 1):
-            expression = ' '.join([term1, operation, term2])
-            flashcard = flashcards(expression)
+            flashcard = Flashcard(term1, term2, operation)
             facts.append(flashcard)
 
     context = {
@@ -156,8 +166,7 @@ def show_table(request, magnitude=None):
         table['headers'].append(term1)
         facts = []
         for term2 in terms:
-            expression = ' '.join([term1, operation, term2])
-            flashcard = flashcards(expression)
+            flashcard = Flashcard(term1, term2, operation)
             facts.append(flashcard.answer)
         table['rows'].append({ 'term': term1, 'facts': facts })
 

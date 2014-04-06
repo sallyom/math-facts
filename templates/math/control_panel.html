@@ -1,8 +1,6 @@
 ﻿{% extends "math/base.html" %}
 
 {% block main-content %}
-<p><a href="{{ next }}">&laquo; Go back</a></p>
-
 <h2>Control Panel</h2>
 
 <p>Choose math fact magnitude:</p>
@@ -33,5 +31,13 @@
     <li><a href="{% url facts %}">Math Fact List</a></li>
     <li><a href="{% url table %}">Math Fact Table</a></li>
 </ul>
+
+
+<div id="controls" class="noprint">
+    <h2>Page Controls</h2>
+    <ul id="control_list">
+        <li><a href="{{ next }}">Go Back</a></p>
+    </ul>
+</div>
 
 {% endblock %}

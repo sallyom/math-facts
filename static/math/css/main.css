@@ -247,15 +247,24 @@ ul.buttons > li > a:hover {
     text-align:center;
     line-height:1.5em;
 }
+/* Comment the following to present in vertical form */
+/* */
+.flashcard .term1 ,
+.flashcard .operation ,
+.flashcard .term2 {
+    display:inline;
+    text-align:right;
+}
+.flashcard .equals {
+    display:none;
+}
+/* */
 .flashcard .term1 ,
 .flashcard .term2 ,
 .flashcard .proposal ,
 .flashcard .proposal * {
     font-weight:bold;
 }
-/* .flashcard .argument {} */
-/* .flashcard .function {} */
-/* .flashcard .equals { display: none; } */
 .flashcard .proposal {
     display:block;
     width:6em;
