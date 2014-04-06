@@ -40,8 +40,7 @@ def control_panel(request):
     if 'next' in request.GET:
         next = request.GET['next']
     else:
-        next = request.META.get('HTTP_REFERER', reverse('index'))
-    print next
+        next = request.META.get('HTTP_REFERER', '/')
 
     context = {
         'current_magnitude': magnitude,
@@ -57,7 +56,7 @@ def control_panel(request):
 def change_controls(request, key, value):
     if key == 'operation':
         for operation in operation_list:
-            if operation['name'] == value:
+            if operation.name == value:
                 break
         value = operation
     request.session[key] = value
@@ -101,7 +100,6 @@ def show_flashcard(request):
             'term2': random.choice(range(magnitude + 1)),
         }
         context.update(session)
-        print context
         template = 'math/show_flashcard.html'
 
     return render(request, template, context)
@@ -149,7 +147,7 @@ def show_table(request, magnitude=None):
     terms = range(0, magnitude + 1)
 
     table = {
-        'corner': operation['display'],
+        'corner': operation.symbol,
         'headers': [],
         'rows': [],
     }

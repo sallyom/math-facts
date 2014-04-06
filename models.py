@@ -1,34 +1,26 @@
 ﻿from __future__ import division
 from __future__ import unicode_literals
 
-magnitude_range = range(13) # this is 0 to 12
-magnitude_default = 5
 
-operation_list = [
-    { 'ascii': '+', 'display': '+', 'name': 'addition'       },
-#     { 'ascii': '-', 'display': '−', 'name': 'subration'      },
-    { 'ascii': '*', 'display': '×', 'name': 'multiplication' },
-#     { 'ascii': '/', 'display': '÷', 'name': 'division'       },
-]
+class Operation(object):
+    def __init__(self, name, ascii, symbol, inverse_of=None):
+        self.name = name
+        self.ascii = ascii
+        self.symbol = symbol
+        self.inverse_of = inverse_of
 
-operation_default = operation_list[1]
+add = Operation('addition', '+', '+')
+sub = Operation('subtraction', '-' , '−', inverse_of=add),
+mul = Operation('multiplication', '*' , '×')
+div = Operation('division', '/' , '÷', inverse_of=mul),
 
-# class Operation(object):
-#     objects = []
-#
-#     def __init(self, symbol, display, name):
-#         self.symbol = symbol
-#         self.display = display
-#         self.name = name
-#
-# operation_list = [
-#     Operation('+', '+', 'addition'      ),
-#     Operation('-', '−', 'subtraction'   ),
-#     Operation('*', '×', 'multiplication'),
-#     Operation('/', '÷', 'division'      ),
-# ]
+operation_list = [add, mul]
+operation_default = mul
 
 ## ------------------------------------------------------ ##
+
+magnitude_range = range(13) # this is 0 to 12
+magnitude_default = 5
 
 class Flashcard(object):
     def __init__(self, expression):
@@ -38,23 +30,27 @@ class Flashcard(object):
         self.term2 = int(term2)
 
         for operation in operation_list:
-            if operation['ascii'] == operation_ascii:
+            if operation.ascii == operation_ascii:
                 break
         self.operation = operation
 
-        if operation['ascii'] == '+':
-            self.answer = self.term1 + self.term2
-        elif operation['ascii'] == '-':
-            self.answer = self.term1 - self.term2
-        elif operation['ascii'] == '*':
-            self.answer = self.term1 * self.term2
-        elif operation['ascii'] == '/':
+    @property
+    def answer(self):
+        if self.operation.ascii == '+':
+            answer = self.term1 + self.term2
+        elif self.operation.ascii == '-':
+            answer = self.term1 - self.term2
+        elif self.operation.ascii == '*':
+            answer = self.term1 * self.term2
+        elif self.operation.ascii == '/':
             if self.term2:
-                self.answer = int(self.term1 / self.term2) # may have to do something special here
+                answer = int(self.term1 / self.term2) # may have to do something special here
             else:
-                self.answer = None
+                answer = None
         else:
-            self.answer = None
+            answer = None
+        return answer
+
 
 
 mag = 20
