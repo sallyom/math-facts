@@ -1,0 +1,19 @@
+{% extends "math/base.html" %}
+
+{% block main-content %}
+
+    <h2>Edit Fact List</h2>
+    <form class="card" method="post" action="{% url post_flashcard_list %}">
+        {% if flashcard_list %}
+        <textarea name="flashcard_list" rows=20 autofocus>{% for flashcard in flashcard_list %}{{ flashcard.expression }}{{ '&#10;' }}{% endfor %}</textarea>
+        {% else %}
+        <textarea name="flashcard_list" rows=20 autofocus></textarea>
+        {% endif %}
+        <p>
+            <button name="submit">Submit</button>
+            <button name="cancel">Cancel</button>
+        </p>
+        {% csrf_token %}
+    </form>
+
+{% endblock %}

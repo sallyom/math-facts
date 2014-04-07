@@ -8,10 +8,13 @@ urlpatterns = patterns('',
     url(r'^post/$', views.post_flashcard, name='post_flashcard'),
     url(r'^reset/$', views.reset_stats, name='reset_stats'),
 
-    url(r'^facts/$', views.show_facts, name='facts'),
+    url(r'^list/$', views.list_flashcards, name='list_flashcards'),
     url(r'^table/$', views.show_table, name='table'),
 
     url(r'^panel/$', views.control_panel, name='control_panel'),
     url(r'^panel/magnitude/(?P<value>\d+)/$', views.change_controls, {'key': 'magnitude'}, name='change_magnitude'),
     url(r'^panel/operation/(?P<value>\w+)/$', views.change_controls, {'key': 'operation'}, name='change_operation'),
+
+    url(r'^panel/flashcard_list/edit/$', views.edit_flashcard_list, name='edit_flashcard_list'),
+    url(r'^panel/flashcard_list/post/$', views.post_flashcard_list, name='post_flashcard_list'),
 )

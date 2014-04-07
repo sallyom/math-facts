@@ -1,6 +1,8 @@
 ﻿from __future__ import division
 from __future__ import unicode_literals
 
+from django.utils.safestring import mark_safe
+
 
 class Operation(object):
     def __init__(self, name, ascii, symbol, inverse_of=None):
@@ -12,6 +14,9 @@ class Operation(object):
 
         if inverse_of:
             self.inverse.inverse = self
+
+    def __unicode__(self):
+        return self.symbol
 
 
 add = Operation('addition', '+', '+')
@@ -35,7 +40,7 @@ class Flashcard(object):
 
     @property
     def expression(self):
-        return ' '.join([self.term1, self.operation.ascii, self.term2])
+        return '{self.term1}{self.operation.ascii}{self.term2}'.format(self=self)
 
     @property
     def answer(self):
@@ -60,20 +65,26 @@ class Flashcard(object):
             return Flashcard(self.answer, self.term2, self.operation.inverse_of)
         return None
 
+    def __unicode__(self):
+        return '{self.term1} {self.operation} {self.term2} = {self.answer}'.format(self=self)
 
-# mag = 20
-#
-# flashcards = {}
-# for operation in operation_list:
-#     for term1 in range(mag + 1):
-#         for term2 in range(mag + 1):
-#             # create primary flashcard
-#             expression = ' '.join([str(term1), op[0], str(term2)])
-#             flashcard = Flashcard(expression)
-#             flashcards[expression] = flashcard
-#
-#             # create inverse flashcard
-#             expression = ' '.join([str(flashcard.answer), op[1], str(term2)])
-#             flashcard = Flashcard(expression)
-#             flashcards[expression] = flashcard
-#
+
+def get_flashcard(expression):
+    try:
+        for operation in operation_list:
+            if operation.ascii in expression:
+                term1, term2 = expression.split(operation.ascii)
+                break
+            elif operation.symbol in expression:
+                term1, term2 = expression.split(operation.symbol)
+                break
+        return Flashcard(term1, term2, operation)
+    except:
+        return None
+
+
+def generate_flashcard(term1, term2, operation):
+    if not operation.is_primary:
+        primary_flashcard = Flashcard(term1, term2, operation.inverse)
+        term1 = primary_flashcard.answer
+    return Flashcard(term1, term2, operation)

@@ -3,6 +3,21 @@
 {% block main-content %}
 <h2>Control Panel</h2>
 
+{% if flashcard_list %}
+<p>Custom flashcard list in use:</p>
+<ul class="flashcard-list">
+    {% for flashcard in flashcard_list %}
+    <li>
+        <span class="term1">{{ flashcard.term1 }}</span>
+        <span class="operation">{{ flashcard.operation.symbol }}</span>
+        <span class="term2">{{ flashcard.term2 }}</span>
+        <span class="equals">=</span>
+        <span class="answer">{{ flashcard.answer }}</span>
+    </li>
+    {% endfor %}
+</ul>
+<p>Click <a href="{% url edit_flashcard_list %}">here</a> to edit or delete this list.</p>
+{% else %}
 <p>Choose math fact magnitude:</p>
 <ul class="buttons">
     {% for magnitude in magnitude_range %}
@@ -24,11 +39,12 @@
     {% endif %}
     {% endfor %}
 </ul>
+<p>Click <a href="{% url edit_flashcard_list %}">here</a> to create a custom flashcard list.</p>
+{% endif %}
 
-<h2>Site Navigation</h2>
+<h2>Supplemental Tools</h2>
 <ul>
-    <li><a href="{% url show_flashcard %}">Flash Cards</a></li>
-    <li><a href="{% url facts %}">Math Fact List</a></li>
+    <li><a href="{% url list_flashcards %}">List Math Facts</a></li>
     <li><a href="{% url table %}">Math Fact Table</a></li>
 </ul>
 
@@ -36,7 +52,7 @@
 <div id="controls" class="noprint">
     <h2>Page Controls</h2>
     <ul id="control_list">
-        <li><a href="{{ next }}">Go Back</a></p>
+        <li><a href="{% url show_flashcard %}">Go Back</a></p>
     </ul>
 </div>
 

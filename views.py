@@ -49,6 +49,7 @@ def control_panel(request):
         'operation_list': operation_list,
         'next': next,
     }
+    context.update(session)
     template = 'math/control_panel.html'
     return render(request, template, context)
 
@@ -72,11 +73,7 @@ def show_flashcard(request):
     if 'evaluate' in session:
         del session['evaluate']
         session = request.session
-        term1, ascii, term2 = session['expression'].split()
-        for operation in operation_list:
-            if operation.ascii == ascii:
-                break
-        flashcard = Flashcard(term1, term2, operation)
+        flashcard = get_flashcard(session['expression'])
 
         try:
             proposed_answer = int(session['proposal'])
@@ -89,26 +86,21 @@ def show_flashcard(request):
         session['nbr_correct'] = session.get('nbr_correct', 0) + success
 
         context = {
-            'term1': term1,
-            'term2': term2,
-            'operation': operation,
-            'answer': flashcard.answer,
+            'flashcard': flashcard,
             'success': success,
         }
         context.update(session)
         template = 'math/show_flashcard_result.html'
     else:
-        magnitude, operation = get_controls(session)
-        term1 = random.choice(range(magnitude + 1))
-        term2 = random.choice(range(magnitude + 1))
-
-        if not operation.is_primary:
-            primary_flashcard = Flashcard(term1, term2, operation.inverse)
-            term1 = primary_flashcard.answer
-
+        if 'flashcard_list' in session:
+            flashcard = random.choice(session['flashcard_list'])
+        else:
+            magnitude, operation = get_controls(session)
+            term1 = random.choice(range(magnitude + 1))
+            term2 = random.choice(range(magnitude + 1))
+            flashcard = generate_flashcard(term1, term2, operation)
         context = {
-            'term1': term1,
-            'term2': term2,
+            'flashcard': flashcard,
         }
         context.update(session)
         template = 'math/show_flashcard.html'
@@ -126,38 +118,62 @@ def post_flashcard(request):
     return redirect('show_flashcard')
 
 
+def edit_flashcard_list(request):
+    flashcard_list = request.session.get('flashcard_list', [])
+    context = {
+        'flashcard_list': flashcard_list,
+    }
+    template = 'math/edit_flashcard_list.html'
+    return render(request, template, context)
+
+
+def post_flashcard_list(request):
+    if 'flashcard_list' in request.POST:
+        flashcard_list = list()
+        expressions_list = request.POST['flashcard_list'].splitlines()
+        for expression in expressions_list:
+            flashcard_list.append(get_flashcard(expression))
+        request.session['flashcard_list'] = flashcard_list
+    return redirect('control_panel')
+
+
 def reset_stats(request):
     del request.session['nbr_attempts']
     del request.session['nbr_correct']
     return redirect('show_flashcard')
 
 
-def show_facts(request):
+def list_flashcards(request):
     session = request.session
     magnitude, operation = get_controls(session)
     terms = range(0, magnitude + 1)
 
-    facts = []
+    flashcard_pairs = []
     for term1 in terms:
         for term2 in range(term1 + 1):
-            flashcard = Flashcard(term1, term2, operation)
-            facts.append(flashcard)
+            flashcard1 = generate_flashcard(term1, term2, operation)
+            flashcard2 = generate_flashcard(term2, term1, operation)
+            flashcard_pairs.append((flashcard1, flashcard2))
 
     context = {
-        'facts': facts,
+        'flashcard_pairs': flashcard_pairs,
     }
     context.update(session)
-    template = 'math/show_facts.html'
+    template = 'math/list_flashcards.html'
     return render(request, template, context)
 
 
 def show_table(request, magnitude=None):
     session = request.session
     magnitude, operation = get_controls(session)
+
+    if not operation.is_primary:
+        operation = operation.inverse
+
     terms = range(0, magnitude + 1)
 
     table = {
-        'corner': operation.symbol,
+        'corner': operation,
         'headers': [],
         'rows': [],
     }
@@ -166,12 +182,13 @@ def show_table(request, magnitude=None):
         table['headers'].append(term1)
         facts = []
         for term2 in terms:
-            flashcard = Flashcard(term1, term2, operation)
+            flashcard = generate_flashcard(term1, term2, operation)
             facts.append(flashcard.answer)
         table['rows'].append({ 'term': term1, 'facts': facts })
 
     context = {
         'table': table,
+        'table_operation': operation,
     }
     context.update(session)
     template = 'math/show_table.html'

@@ -5,9 +5,10 @@
 body {
     font-family:serif;
     margin:1em;
-    background:#e6eefe;
+    background:#e6eefe url(banner.jpg) center top no-repeat;
     max-width:100%;
 }
+
 a {
     color:blue;
     text-decoration:none;
@@ -43,7 +44,7 @@ input[type=number]::-webkit-outer-spin-button {
 #controls ul::-webkit-scrollbar {
     display: none;
 }
-#controls li{
+#controls li {
     display:block;
     padding-left:5.5em;
     padding-right:0.5em;
@@ -143,42 +144,42 @@ ul.buttons > li > a:hover {
 
 
 
-.fact-blocks {
+.fact-block {
     display:inline-block;
     margin:0em;
 }
-.fact-blocks table {
+.fact-block table {
     background:#CCCCCC;
     width:8em;
 }
-.fact-blocks table * {
+.fact-block table * {
     background:white;
 }
-.fact-blocks table th,td {
+.fact-block table th,td {
     padding:5px 10px;
     text-align:center;
 }
-.fact-blocks table th {
+.fact-block table th {
     background:#EEEEEE;
 }
-.fact-blocks table td {
+.fact-block table td {
     background:transparent;
 }
-.fact-blocks table td * {
+.fact-block table td * {
     background:transparent
 }
-.fact-blocks table td.operation {
+.fact-block table td.expression {
     width:67%;
 }
-.fact-blocks table td.result {
+.fact-block table td.answer {
     width:33%;
 }
-.fact-blocks table input[type="text"] {
+.fact-block table input[type="text"] {
     border:0;
     text-align:center;
     background:transparent
 }
-.fact-blocks table tr:hover {
+.fact-block table tr:hover {
     background:#FFFFCC;
 }
 
@@ -330,6 +331,30 @@ ul.buttons > li > a:hover {
     margin-top:2em;
 }
 /* */
+
+
+
+
+
+ul.flashcard-list {
+    list-style:none;
+    padding-left:1em;
+}
+ul.flashcard-list > li > span {
+    display:inline-block;
+    line-height:1em;
+    width:1em;
+    margin:2px 0;
+    text-align:right;
+}
+ul.flashcard-list > li > span.equals ,
+ul.flashcard-list > li > span.answer {
+    width:2em;
+}
+
+
+
+
 
 
 /*****************/

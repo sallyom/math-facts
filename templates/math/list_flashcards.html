@@ -1,0 +1,20 @@
+﻿{% extends "math/base.html" %}
+
+{% block main-content %}
+
+<h2>{{ operation.name|title }} Facts (magnitude {{ magnitude }})</h2>
+{% for flashcard_pair in flashcard_pairs %}
+<div class="fact-block">
+    <table>
+        {% for flashcard in flashcard_pair %}
+        <tr>
+            <td class="expression">{{ flashcard.term1 }} {{ flashcard.operation }} {{ flashcard.term2 }}</td>
+            <td class="answer">{{ flashcard.answer }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endfor %}
+
+{% include "math/controls.html" %}
+{% endblock %}

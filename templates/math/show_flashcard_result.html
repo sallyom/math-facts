@@ -3,15 +3,15 @@
 {% block main-content %}
 
 <div class="flashcard">
-    <h2>Flash Cards</h2>
+    <h2>Flashcards</h2>
     <form class="card {% if success %}correct{% else %}incorrect{% endif %}">
         <span class="expression">
             <span class="argument">
-                <span class="term1">{{ term1 }}</span>
+                <span class="term1">{{ flashcard.term1 }}</span>
             </span>
             <span class="function">
-                <span class="operation">{{ operation.symbol }}</span>
-                <span class="term2">{{ term2 }}</span>
+                <span class="operation">{{ flashcard.operation }}</span>
+                <span class="term2">{{ flashcard.term2 }}</span>
             </span>
         </span>
         <span class="equals">=</span>
