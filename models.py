@@ -89,8 +89,8 @@ def generate_flashcard(term1, term2, operation):
 
 ## ------------------------------------------------------ ##
 
-magnitude_range = range(13) # this is 0 to 12
-magnitude_default = 5
+maxterm_range = range(13) # this is 0 to 12
+maxterm_default = 5
 
 initial_expressions_list = [
     '10-08','09-09','10-02','10-05','09-03','10-03','07-05','10-07',

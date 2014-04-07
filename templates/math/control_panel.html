@@ -18,18 +18,18 @@
 </ul>
 <p>Click <a href="{% url edit_flashcard_list %}">here</a> to edit or delete this list.</p>
 {% else %}
-<p>Choose math fact magnitude:</p>
+<p>Choose maximum term:</p>
 <ul class="buttons">
-    {% for magnitude in magnitude_range %}
-    {% if current_magnitude == magnitude %}
-    <li><span>{{ magnitude }}</span></li>
+    {% for maxterm in maxterm_range %}
+    {% if current_maxterm == maxterm %}
+    <li><span>{{ maxterm }}</span></li>
     {% else %}
-    <li><a href="{% url change_magnitude magnitude %}">{{ magnitude }}</a></li>
+    <li><a href="{% url change_maxterm maxterm %}">{{ maxterm }}</a></li>
     {% endif %}
     {% endfor %}
 </ul>
 
-<p>Choose math fact operation:</p>
+<p>Choose operation:</p>
 <ul class="buttons">
     {% for operation in operation_list %}
     {% if current_operation.name == operation.name %}

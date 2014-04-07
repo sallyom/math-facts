@@ -13,17 +13,17 @@ from models import *
 
 def get_controls(session):
     try:
-        magnitude = int(session['magnitude'])
+        maxterm = int(session['maxterm'])
     except:
-        magnitude = magnitude_default
-    if 'magnitude' not in session:
-        session['magnitude'] = magnitude
+        maxterm = maxterm_default
+    if 'maxterm' not in session:
+        session['maxterm'] = maxterm
 
     operation = session.get('operation', operation_default)
     if 'operation' not in session:
         session['operation'] = operation
 
-    return magnitude, operation
+    return maxterm, operation
 
 ## ------------------------------------------------------ ##
 
@@ -35,11 +35,11 @@ def index(request):
 
 def control_panel(request):
     session = request.session
-    magnitude, operation = get_controls(session)
+    maxterm, operation = get_controls(session)
 
     context = {
-        'current_magnitude': magnitude,
-        'magnitude_range': magnitude_range,
+        'current_maxterm': maxterm,
+        'maxterm_range': maxterm_range,
         'current_operation': operation,
         'operation_list': operation_list,
     }
@@ -96,9 +96,9 @@ def show_flashcard(request):
         if flashcard_list:
             flashcard = random.choice(flashcard_list)
         else:
-            magnitude, operation = get_controls(session)
-            term1 = random.choice(range(magnitude + 1))
-            term2 = random.choice(range(magnitude + 1))
+            maxterm, operation = get_controls(session)
+            term1 = random.choice(range(maxterm + 1))
+            term2 = random.choice(range(maxterm + 1))
             flashcard = generate_flashcard(term1, term2, operation)
         context = {
             'flashcard': flashcard,
@@ -156,8 +156,8 @@ def reset_stats(request):
 
 def list_flashcards(request):
     session = request.session
-    magnitude, operation = get_controls(session)
-    terms = range(0, magnitude + 1)
+    maxterm, operation = get_controls(session)
+    terms = range(0, maxterm + 1)
 
     flashcard_pairs = []
     for term1 in terms:
@@ -174,14 +174,14 @@ def list_flashcards(request):
     return render(request, template, context)
 
 
-def show_table(request, magnitude=None):
+def show_table(request, maxterm=None):
     session = request.session
-    magnitude, operation = get_controls(session)
+    maxterm, operation = get_controls(session)
 
     if not operation.is_primary:
         operation = operation.inverse
 
-    terms = range(0, magnitude + 1)
+    terms = range(0, maxterm + 1)
 
     table = {
         'corner': operation,

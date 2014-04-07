@@ -2,7 +2,7 @@
 
 {% block main-content %}
 
-<h2>{{ operation.name|title }} Facts (magnitude {{ magnitude }})</h2>
+<h2>{{ operation.name|title }} Facts (Up to {{ maxterm }})</h2>
 {% for flashcard_pair in flashcard_pairs %}
 <div class="fact-block">
     <table>
