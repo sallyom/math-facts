@@ -70,14 +70,14 @@ input[type=number]::-webkit-outer-spin-button {
 #controls a {
     padding:0.5em;
     margin:0;
-    border:1px solid white;
+    border:1px solid #83abfa;
     display:block;
     text-align:center;
     text-decoration:none;
     background:#e6eefe;
 }
 #controls a:hover {
-    background:#f2f6fe;
+    background:#cdddfd;
 }
 
 /*
@@ -147,15 +147,15 @@ ul.buttons > li > span {
     text-align:center;
     text-decoration:none;
     color:blue;
-    background:#e6eeef;
-    border:1px solid white;
+    background:#e6eefe;
+    border:1px solid #83abfa;
     margin:2px 0;
 }
 ul.buttons > li > span {
     background:#cdddfd;
 }
 ul.buttons > li > a:hover {
-    background:#f2f6fe;
+    background:#cdddfd;
 }
 
 
@@ -322,11 +322,8 @@ ul.buttons > li > a:hover {
 .flashcard {
     width:18em;
     height:26em;
-    background:#f2f6fe;
+    background:white;
     border:1px solid #f2f6fe;
-    -moz-border-radius: 20px;
-    -webkit-border-radius: 20px;
-    border-radius: 20px; /* future proofing */
     padding:1em;
     margin:auto;
     position:absolute;
@@ -338,6 +335,9 @@ ul.buttons > li > a:hover {
 .flashcard .card {
     padding:2em 1em;
     border:1px solid #83abfa;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px; /* future proofing */
 }
 .flashcard .operation {
     display:inline;
