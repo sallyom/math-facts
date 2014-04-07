@@ -37,17 +37,17 @@ def control_panel(request):
     session = request.session
     magnitude, operation = get_controls(session)
 
-    if 'next' in request.GET:
-        next = request.GET['next']
-    else:
-        next = request.META.get('HTTP_REFERER', '/')
+#     if 'next' in request.GET:
+#         next = request.GET['next']
+#     else:
+#         next = request.META.get('HTTP_REFERER', '/')
 
     context = {
         'current_magnitude': magnitude,
         'magnitude_range': magnitude_range,
         'current_operation': operation,
         'operation_list': operation_list,
-        'next': next,
+#         'next': next,
     }
     context.update(session)
     template = 'math/control_panel.html'
@@ -62,9 +62,9 @@ def change_controls(request, key, value):
         value = operation
     request.session[key] = value
 
-    next = request.GET['next']
+#     next = request.GET['next']
     response = redirect('control_panel')
-    response['Location'] += '?next={}'.format(next)
+#     response['Location'] += '?next={}'.format(next)
     return response
 
 
@@ -133,7 +133,10 @@ def post_flashcard_list(request):
         expressions_list = request.POST['flashcard_list'].splitlines()
         for expression in expressions_list:
             flashcard_list.append(get_flashcard(expression))
-        request.session['flashcard_list'] = flashcard_list
+        if flashcard_list:
+            request.session['flashcard_list'] = flashcard_list
+        else:
+            del request.session['flashcard_list']
     return redirect('control_panel')
 
 

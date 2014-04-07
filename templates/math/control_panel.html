@@ -24,7 +24,7 @@
     {% if current_magnitude == magnitude %}
     <li><span>{{ magnitude }}</span></li>
     {% else %}
-    <li><a href="{% url change_magnitude magnitude %}?next={{ next }}">{{ magnitude }}</a></li>
+    <li><a href="{% url change_magnitude magnitude %}">{{ magnitude }}</a></li>
     {% endif %}
     {% endfor %}
 </ul>
@@ -35,7 +35,7 @@
     {% if current_operation.name == operation.name %}
     <li><span>{{ operation.symbol }}</span></li>
     {% else %}
-    <li><a href="{% url change_operation operation.name %}?next={{ next }}">{{ operation.symbol }}</a></li>
+    <li><a href="{% url change_operation operation.name %}">{{ operation.symbol }}</a></li>
     {% endif %}
     {% endfor %}
 </ul>
