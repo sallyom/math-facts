@@ -243,7 +243,7 @@ ul.buttons > li > a:hover {
 
 
 .flashcard {
-    width:18em;    
+    width:18em;
     margin:1em auto;
     padding:1em;
     border:1px solid #f2f6fe;
@@ -320,7 +320,20 @@ ul.buttons > li > a:hover {
 /* Comment the following to present in vertical form */
 /* */
 .flashcard {
-    width:10em;
+    width:18em;
+    height:26em;
+    background:#f2f6fe;
+    border:1px solid #f2f6fe;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px; /* future proofing */
+    padding:1em;
+    margin:auto;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
 }
 .flashcard .card {
     padding:2em 1em;
@@ -351,12 +364,6 @@ ul.buttons > li > a:hover {
 }
 .flashcard button {
     margin-top:2em;
-}
-.flashcard {
-    width:18em;
-    background:#f2f6fe;
-    border:1px solid #f2f6fe;
-    padding:1em;
 }
 /* */
 
