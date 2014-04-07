@@ -23,7 +23,7 @@
         {% if success %}
         <p>This is correct!</p>
         {% else %}
-        <p>The answer is {{ answer }}.</p>
+        <p>The answer is {{ flashcard.answer }}.</p>
         {% endif %}
         <p>So far, {{ nbr_correct }} out of {{ nbr_attempts }}.</p>
         <p><a href="{% url reset_stats %}">Reset stats</a></p>
