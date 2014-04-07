@@ -5,8 +5,8 @@
 body {
     font-family:serif;
     margin:1em;
-    background:#e6eefe url(../../background.jpg) center top no-repeat;
     max-width:100%;
+    background:#e6eefe;
 }
 
 a {
@@ -42,7 +42,7 @@ input[type=number]::-webkit-outer-spin-button {
 #controls h2 {
     display:none;
 }
-#controls ul{
+#controls ul {
     position:absolute;
     top:0;
     right:0;
@@ -243,7 +243,7 @@ ul.buttons > li > a:hover {
 
 
 .flashcard {
-    width:20em;    
+    width:18em;    
     margin:1em auto;
     padding:1em;
     border:1px solid #f2f6fe;
@@ -320,7 +320,7 @@ ul.buttons > li > a:hover {
 /* Comment the following to present in vertical form */
 /* */
 .flashcard {
-    width:12em;
+    width:10em;
 }
 .flashcard .card {
     padding:2em 1em;

@@ -1,5 +1,11 @@
 ﻿{% extends "math/base.html" %}
 
+{% block extra-style %}
+body {
+    background:#e6eefe url({{ STATIC_URL }}background.jpg) center top no-repeat;
+}
+{% endblock %}
+
 {% block main-content %}
 
 <div class="flashcard">
