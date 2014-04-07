@@ -63,12 +63,11 @@ def show_flashcard(request):
     session = request.session
 
     # just a hack until i set up auth/login, etc...
-    if 'flashcard_list' not in session and initial_expressions_list:
+    if 'flashcard_list' not in session:
         flashcard_list = list()
         for expression in initial_expressions_list:
             flashcard_list.append(get_flashcard(expression))
-        if flashcard_list:
-            request.session['flashcard_list'] = flashcard_list
+        request.session['flashcard_list'] = flashcard_list
     # end hack
 
     if 'evaluate' in session:
@@ -93,8 +92,9 @@ def show_flashcard(request):
         context.update(session)
         template = 'math/show_flashcard_result.html'
     else:
-        if 'flashcard_list' in session:
-            flashcard = random.choice(session['flashcard_list'])
+        flashcard_list = session.get('flashcard_list', [])
+        if flashcard_list:
+            flashcard = random.choice(flashcard_list)
         else:
             magnitude, operation = get_controls(session)
             term1 = random.choice(range(magnitude + 1))
@@ -144,10 +144,7 @@ def post_flashcard_list(request):
                 }
                 template = 'math/edit_flashcard_list.html'
                 return render(request, template, context)
-        if flashcard_list:
-            request.session['flashcard_list'] = flashcard_list
-        else:
-            del request.session['flashcard_list']
+        request.session['flashcard_list'] = flashcard_list
     return redirect('control_panel')
 
 
