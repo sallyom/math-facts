@@ -247,18 +247,6 @@ ul.buttons > li > a:hover {
     text-align:center;
     line-height:1.5em;
 }
-/* Comment the following to present in vertical form */
-/* */
-.flashcard .term1 ,
-.flashcard .operation ,
-.flashcard .term2 {
-    display:inline;
-    text-align:right;
-}
-.flashcard .equals {
-    display:none;
-}
-/* */
 .flashcard .term1 ,
 .flashcard .term2 ,
 .flashcard .proposal ,
@@ -305,6 +293,44 @@ ul.buttons > li > a:hover {
     border:1px solid orange;
     background:#ffedcc;
 }
+
+/* Comment the following to present in vertical form */
+/* */
+.flashcard {
+    width:12em;
+}
+.flashcard .card {
+    padding:2em 1em;
+    border:1px solid #83abfa;
+}
+.flashcard .operation {
+    display:inline;
+    margin:0 5px;
+}
+.flashcard .term1 ,
+.flashcard .term2 {
+    display:inline;
+    text-align:right;
+
+    display:inline-block;
+    line-height:2em;
+    width:1.5em;
+    margin:2px 0;
+    text-align:center;
+}
+.flashcard .equals {
+    display:none;
+}
+.flashcard .proposal {
+    margin:1em auto;
+    background:white;
+    border:1px solid #83abfa;
+}
+.flashcard button {
+    margin-top:2em;
+}
+/* */
+
 
 /*****************/
 /* Special media */
