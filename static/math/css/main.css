@@ -7,6 +7,7 @@ body {
     margin:1em;
     max-width:100%;
     background:#e6eefe;
+    background:#f9f4d6;
 }
 
 a {
@@ -197,7 +198,7 @@ ul.buttons > li > a:hover {
     background:transparent
 }
 .fact-block table tr:hover {
-    background:#FFFFCC;
+    background:#e6eefe;
 }
 
 
@@ -228,14 +229,14 @@ ul.buttons > li > a:hover {
     background-color:transparent;
 }
 .fact-table td:hover {
-    background-color:yellow;
+    background-color:#cdddfd;
     cursor:pointer;
 }
 .fact-table .clicked {
-    background-color:yellow;
+    background-color:#cdddfd;
 }
 .fact-table .clickline {
-    background-color:#ffc;
+    background-color:#e6eefe;
 }
 .fact-table .hover {}
 
