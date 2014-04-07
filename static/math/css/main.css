@@ -23,6 +23,22 @@ input[type=number]::-webkit-outer-spin-button {
     margin:0;
 }
 
+.warning {
+    padding:0.5em;
+    border:1px dotted red;
+    background:#fdd;
+    color:red;
+    font-style:italic;
+    cursor:pointer;
+}
+
+.horizontal_list { padding-left:0; }
+.horizontal_list li { display:inline; }
+.horizontal_list li:after { content:" | "; }
+.horizontal_list li:last-child:after { content: ''; }
+
+
+
 #controls h2 {
     display:none;
 }

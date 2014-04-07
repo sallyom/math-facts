@@ -3,11 +3,18 @@
 {% block main-content %}
 
     <h2>Edit Fact List</h2>
+    {% if error_dump %}
+    <p class="warning">There is a problem with the line "{{ expression }}".</p>
+    {% endif %}
     <form class="card" method="post" action="{% url post_flashcard_list %}">
         {% if flashcard_list %}
         <textarea name="flashcard_list" rows=20 autofocus>{% for flashcard in flashcard_list %}{{ flashcard.expression }}{{ '&#10;' }}{% endfor %}</textarea>
         {% else %}
+        {% if error_dump %}
+        <textarea name="flashcard_list" rows=20 autofocus>{{ error_dump }}</textarea>
+        {% else %}
         <textarea name="flashcard_list" rows=20 autofocus></textarea>
+        {% endif %}
         {% endif %}
         <p>
             <button name="submit">Submit</button>

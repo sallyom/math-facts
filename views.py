@@ -37,17 +37,11 @@ def control_panel(request):
     session = request.session
     magnitude, operation = get_controls(session)
 
-#     if 'next' in request.GET:
-#         next = request.GET['next']
-#     else:
-#         next = request.META.get('HTTP_REFERER', '/')
-
     context = {
         'current_magnitude': magnitude,
         'magnitude_range': magnitude_range,
         'current_operation': operation,
         'operation_list': operation_list,
-#         'next': next,
     }
     context.update(session)
     template = 'math/control_panel.html'
@@ -62,14 +56,21 @@ def change_controls(request, key, value):
         value = operation
     request.session[key] = value
 
-#     next = request.GET['next']
-    response = redirect('control_panel')
-#     response['Location'] += '?next={}'.format(next)
-    return response
+    return redirect('control_panel')
 
 
 def show_flashcard(request):
     session = request.session
+
+    # just a hack until i set up auth/login, etc...
+    if 'flashcard_list' not in session and initial_expressions_list:
+        flashcard_list = list()
+        for expression in initial_expressions_list:
+            flashcard_list.append(get_flashcard(expression))
+        if flashcard_list:
+            request.session['flashcard_list'] = flashcard_list
+    # end hack
+
     if 'evaluate' in session:
         del session['evaluate']
         session = request.session
@@ -129,10 +130,20 @@ def edit_flashcard_list(request):
 
 def post_flashcard_list(request):
     if 'flashcard_list' in request.POST:
-        flashcard_list = list()
         expressions_list = request.POST['flashcard_list'].splitlines()
+        flashcard_list = list()
         for expression in expressions_list:
-            flashcard_list.append(get_flashcard(expression))
+            flashcard = get_flashcard(expression)
+            if flashcard:
+                flashcard_list.append(flashcard)
+            else: # there is a problem...
+                flashcard_list = request.session.get('flashcard_list', [])
+                context = {
+                    'error_dump': request.POST['flashcard_list'],
+                    'expression': expression,
+                }
+                template = 'math/edit_flashcard_list.html'
+                return render(request, template, context)
         if flashcard_list:
             request.session['flashcard_list'] = flashcard_list
         else:

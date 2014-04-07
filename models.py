@@ -29,9 +29,6 @@ operation_default = mul
 
 ## ------------------------------------------------------ ##
 
-magnitude_range = range(13) # this is 0 to 12
-magnitude_default = 5
-
 class Flashcard(object):
     def __init__(self, term1, term2, operation):
         self.term1 = int(term1)
@@ -68,6 +65,7 @@ class Flashcard(object):
     def __unicode__(self):
         return '{self.term1} {self.operation} {self.term2} = {self.answer}'.format(self=self)
 
+## ------------------------------------------------------ ##
 
 def get_flashcard(expression):
     try:
@@ -88,3 +86,13 @@ def generate_flashcard(term1, term2, operation):
         primary_flashcard = Flashcard(term1, term2, operation.inverse)
         term1 = primary_flashcard.answer
     return Flashcard(term1, term2, operation)
+
+## ------------------------------------------------------ ##
+
+magnitude_range = range(13) # this is 0 to 12
+magnitude_default = 5
+
+initial_expressions_list = [
+    '10-08','09-09','10-02','10-05','09-03','10-03','07-05','10-07',
+    '08-06','10-06','06-05','10-01','08-03','10-04','10-09','10-10',
+]
