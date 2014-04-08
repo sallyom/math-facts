@@ -87,6 +87,14 @@ def generate_flashcard(term1, term2, operation):
         term1 = primary_flashcard.answer
     return Flashcard(term1, term2, operation)
 
+def evaluate_flashcard(flashcard, proposed_answer):
+    try:
+        proposed_answer = int(proposed_answer)
+    except:
+        proposed_answer = None
+    return ( proposed_answer == flashcard.answer )
+    
+    
 ## ------------------------------------------------------ ##
 
 maxterm_range = range(13) # this is 0 to 12

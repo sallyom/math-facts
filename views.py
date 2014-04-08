@@ -74,13 +74,7 @@ def show_flashcard(request):
         del session['evaluate']
         session = request.session
         flashcard = get_flashcard(session['expression'])
-
-        try:
-            proposed_answer = int(session['proposal'])
-        except:
-            proposed_answer = None
-
-        success = ( proposed_answer == flashcard.answer )
+        success = evaluate_flashcard(flashcard, session['proposal'])
 
         session['nbr_attempts'] = session.get('nbr_attempts', 0) + 1
         session['nbr_correct'] = session.get('nbr_correct', 0) + success
