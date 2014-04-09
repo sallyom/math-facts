@@ -90,7 +90,7 @@ def evaluate_flashcard(flashcard, proposed_answer):
 maxterm_range = range(13) # this is 0 to 12
 maxterm_default = 5
 
-expression_collection = [
+expression_list_collection = [
 ['1+2','0+0','2+2','4+0','1+2','2+3','0+1','3+1','4+1','0+2','1+1','0+5','1+4','3+2','1+0','3+0',],
 ['2+2','5+0','0+5','3+0','4+1','3+2','1+1','4+0','2+1','0+4','0+1','2+0','1+2','0+0','1+4','2+3',],
 ['4+0','5+0','3+1','3+0','1+4','3+2','2+2','0+5','0+2','0+3','0+1','0+0','1+2','2+0','4+1','1+3',],
@@ -119,4 +119,5 @@ expression_collection = [
 ['9+7','15-6','16-8','10+10','14-8','10+7','9+9','15-7','8+8','16-9','17-9','8+9','20-10','10+6','7+9','14-7',],
 ]
 
-initial_expressions_list = expression_collection[12]
+initial_expression_list = expression_list_collection[12]
+initial_expression_list = ['10-2','10-3','10-4','10-5','10-6','10-7','10-8']
