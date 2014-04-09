@@ -326,7 +326,6 @@ dl.login dd input {
     font-size:100%;
     text-align:center;
     outline:none;
-    background:#e6eefe;
     border:0;
 }
 dl.login dd input:-webkit-autofill {
