@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import random
 
+from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -25,12 +26,16 @@ def get_controls(session):
 
     return maxterm, operation
 
+
 ## ------------------------------------------------------ ##
 
-def index(request):
-    context = {}
-    template = 'math/index.html'
-    return render(request, template, context)
+
+def math_logout(request):
+    logout(request)
+    if 'next' in request.GET:
+        return redirect(request.GET['next'])
+    else:
+        return redirect('show_flashcard')
 
 
 def control_panel(request):

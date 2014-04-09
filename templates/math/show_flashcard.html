@@ -33,8 +33,19 @@ body {
         <p>&nbsp;</p>
         {% if nbr_attempts %}
         <p>So far, {{ nbr_correct }} out of {{ nbr_attempts }}.</p>
-        <p><a href="{% url reset_stats %}">Reset counter</a></p>
+        {% else %}
+        <p>&nbsp;</p>
         {% endif %}
+        <ul class="horizontal-list">
+            {% if nbr_attempts %}
+            <li><a href="{% url reset_stats %}">Reset counter</a></li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li><a href="{% url math_logout %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url math_login %}?next={% url show_flashcard %}">Login</a></li>
+            {% endif %}
+        </ul>
     </div>
 </div>
 

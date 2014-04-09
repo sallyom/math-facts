@@ -32,7 +32,14 @@ body {
         <p>The answer is {{ flashcard.answer }}.</p>
         {% endif %}
         <p>So far, {{ nbr_correct }} out of {{ nbr_attempts }}.</p>
-        <p><a href="{% url reset_stats %}">Reset counter</a></p>
+        <ul class="horizontal-list">
+            <li><a href="{% url reset_stats %}">Reset counter</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url math_logout %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url math_login %}?next={% url show_flashcard %}">Login</a></li>
+            {% endif %}
+        </ul>
     </div>
 </div>
 

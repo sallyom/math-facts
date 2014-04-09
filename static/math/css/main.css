@@ -33,10 +33,10 @@ input[type=number]::-webkit-outer-spin-button {
     cursor:pointer;
 }
 
-.horizontal_list { padding-left:0; }
-.horizontal_list li { display:inline; }
-.horizontal_list li:after { content:" | "; }
-.horizontal_list li:last-child:after { content: ''; }
+.horizontal-list { padding-left:0; }
+.horizontal-list li { display:inline; }
+.horizontal-list li:after { content:" | "; }
+.horizontal-list li:last-child:after { content: ''; }
 
 
 
@@ -306,6 +306,32 @@ ul.flashcard-list > li > span.answer {
 }
 .fact-table .hover {}
 
+
+
+dl.login dt {
+    font-weight:bold;
+}
+dl.login dd {
+    display:block;
+    width:8em;
+    line-height:2em;
+    margin:1em auto;
+    background:white;
+    border:1px solid #83abfa;
+}
+dl.login dd input {
+    width:100%;
+    margin:0;
+    font-family:serif;
+    font-size:100%;
+    text-align:center;
+    outline:none;
+    background:#e6eefe;
+    border:0;
+}
+dl.login dd input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+}
 
 
 
