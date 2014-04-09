@@ -196,6 +196,15 @@ ul.buttons > li > a:hover {
     line-height:1.5em;
     text-align:center;
 }
+
+.flashcard.loggedin .card {
+    background:#cdddfd;
+    border:1px solid blue;
+}
+.flashcard.loggedin .attempt {
+    border:1px solid blue;
+}
+
 .flashcard .card.correct,
 .flashcard .card.correct .attempt {
     border:1px solid green;
@@ -206,6 +215,8 @@ ul.buttons > li > a:hover {
     border:1px solid orange;
     background:#ffedcc;
 }
+
+
 
 
 

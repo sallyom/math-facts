@@ -8,7 +8,7 @@ body {
 
 {% block main-content %}
 
-<div class="flashcard">
+<div class="flashcard{% if user.is_authenticated %} loggedin{% endif %}">
     <h2>Flashcards</h2>
     <form class="card" method="post" action="{% url post_flashcard %}">
         <span class="expression">
