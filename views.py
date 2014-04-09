@@ -116,7 +116,7 @@ def post_flashcard(request):
     except:
         attempt = None
 
-    if request.user.is_authenticated:
+    if request.user.is_authenticated():
         fa = FlashcardAttempt()
         fa.user = request.user
         fa.expression = expression
