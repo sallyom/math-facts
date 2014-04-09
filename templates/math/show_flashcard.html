@@ -41,7 +41,7 @@ body {
             <li><a href="{% url reset_stats %}">Reset counter</a></li>
             {% endif %}
             {% if user.is_authenticated %}
-            <li><a href="{% url math_logout %}">Logout</a></li>
+            <li><a href="{% url math_logout %}">Logout {{ user.first_name }}?</a></li>
             {% else %}
             <li><a href="{% url math_login %}?next={% url show_flashcard %}">Login</a></li>
             {% endif %}
