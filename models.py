@@ -119,4 +119,5 @@ expression_list_collection = [
 ['9+7','15-6','16-8','10+10','14-8','10+7','9+9','15-7','8+8','16-9','17-9','8+9','20-10','10+6','7+9','14-7',],
 ]
 
-initial_expressions_list = expression_list_collection[12]
+initial_expression_list = expression_list_collection[12]
+initial_expression_list = ['10-2','10-3','10-4','10-5','10-6','10-7','10-8']

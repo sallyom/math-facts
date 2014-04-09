@@ -65,7 +65,7 @@ def show_flashcard(request):
     # just a hack until i set up auth/login, etc...
     if 'flashcard_list' not in session:
         flashcard_list = list()
-        for expression in initial_expressions_list:
+        for expression in initial_expression_list:
             flashcard_list.append(get_flashcard(expression))
         request.session['flashcard_list'] = flashcard_list
     # end hack
