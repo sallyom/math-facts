@@ -1,8 +1,10 @@
 ﻿from __future__ import division
 from __future__ import unicode_literals
 
-from django.utils.safestring import mark_safe
+from django.contrib.auth.models import User
+from django.db.models import *
 
+## ------------------------------------------------------ ##
 
 class Operation(object):
     def __init__(self, name, ascii, symbol, inverse_of=None):
@@ -121,3 +123,25 @@ expression_list_collection = [
 
 initial_expression_list = expression_list_collection[12]
 initial_expression_list = ['10-2','10-3','10-4','10-5','10-6','10-7','10-8']
+
+## ------------------------------------------------------ ##
+
+class FlashcardAttempt(Model):
+    user = ForeignKey(User)
+    expression = CharField(max_length=200)
+    attempt = IntegerField(null=True, blank=True)
+    attempt_at = DateTimeField(auto_now_add=True)
+
+    @property
+    def flashcard(self):
+        return get_flashcard(self.expression)
+
+    @property
+    def is_correct(self):
+        return ( self.attempt == self.flashcard.answer )
+
+    def __unicode__(self):
+        return '{self.user} | {self.expression}={self.attempt}'.format(self=self)
+
+    class Meta:
+        ordering = ['user', '-attempt_at']

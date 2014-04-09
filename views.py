@@ -79,14 +79,14 @@ def show_flashcard(request):
         del session['evaluate']
         session = request.session
         flashcard = get_flashcard(session['expression'])
-        success = evaluate_flashcard(flashcard, session['proposal'])
+        is_correct = evaluate_flashcard(flashcard, session['attempt'])
 
         session['nbr_attempts'] = session.get('nbr_attempts', 0) + 1
-        session['nbr_correct'] = session.get('nbr_correct', 0) + success
+        session['nbr_correct'] = session.get('nbr_correct', 0) + is_correct
 
         context = {
             'flashcard': flashcard,
-            'success': success,
+            'is_correct': is_correct,
         }
         context.update(session)
         template = 'math/show_flashcard_result.html'
@@ -110,11 +110,21 @@ def show_flashcard(request):
 
 def post_flashcard(request):
     request.session['evaluate'] = True
-    request.session['expression'] = request.POST['expression']
+    expression = request.POST['expression']
     try:
-        request.session['proposal'] = int(request.POST['proposal'])
+        attempt = int(request.POST['attempt'])
     except:
-        request.session['proposal'] = None
+        attempt = None
+
+    if request.user.is_authenticated:
+        fa = FlashcardAttempt()
+        fa.user = request.user
+        fa.expression = expression
+        fa.attempt = attempt
+        fa.save()
+
+    request.session['expression'] = expression
+    request.session['attempt'] = attempt
     return redirect('show_flashcard')
 
 

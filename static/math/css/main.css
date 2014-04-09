@@ -162,11 +162,11 @@ ul.buttons > li > a:hover {
 }
 .flashcard .term1 ,
 .flashcard .term2 ,
-.flashcard .proposal ,
-.flashcard .proposal * {
+.flashcard .attempt ,
+.flashcard .attempt * {
     font-weight:bold;
 }
-.flashcard .proposal {
+.flashcard .attempt {
     display:block;
     width:6em;
     line-height:2em;
@@ -174,7 +174,7 @@ ul.buttons > li > a:hover {
     background:white;
     border:1px solid #83abfa;
 }
-.flashcard .proposal input {
+.flashcard .attempt input {
     width:100%;
     font-family:serif;
     font-size:100%;
@@ -197,12 +197,12 @@ ul.buttons > li > a:hover {
     text-align:center;
 }
 .flashcard .card.correct,
-.flashcard .card.correct .proposal {
+.flashcard .card.correct .attempt {
     border:1px solid green;
     background:#d3efd3;
 }
 .flashcard .card.incorrect,
-.flashcard .card.incorrect .proposal {
+.flashcard .card.incorrect .attempt {
     border:1px solid orange;
     background:#ffedcc;
 }

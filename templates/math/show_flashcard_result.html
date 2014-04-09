@@ -10,7 +10,7 @@ body {
 
 <div class="flashcard">
     <h2>Flashcards</h2>
-    <form class="card {% if success %}correct{% else %}incorrect{% endif %}">
+    <form class="card {% if is_correct %}correct{% else %}incorrect{% endif %}">
         <span class="expression">
             <span class="argument">
                 <span class="term1">{{ flashcard.term1 }}</span>
@@ -21,12 +21,12 @@ body {
             </span>
         </span>
         <span class="equals">=</span>
-        <span class="proposal">{{ proposal }}</span>
+        <span class="attempt">{{ attempt }}</span>
         <button type="button" onclick="location.href='{% url show_flashcard %}'" autofocus>Next</button>
     </form>
 
     <div class="feedback">
-        {% if success %}
+        {% if correct %}
         <p>This is correct!</p>
         {% else %}
         <p>The answer is {{ flashcard.answer }}.</p>
