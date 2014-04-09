@@ -17,9 +17,9 @@ body {
     <form class="card" method="post" action="{% url django.contrib.auth.views.login %}">
         <dl class="login">
             <dt>Username</dt>
-            <dd><input type="text" name="username"></dd>
+            <dd><input type="text" name="username" autocomplete="off" autofocus></dd>
             <dt>Password</dt>
-            <dd><input type="password" name="password"></dd>
+            <dd><input type="password" name="password" autocomplete="off"></dd>
         </dl>
         <button name="submit">Submit</button>
         <input type="hidden" name="next" value="{{ next }}" />
