@@ -40,27 +40,37 @@ input[type=number]::-webkit-outer-spin-button {
 
 
 
+/* I was using #controls ul::-webkit-scrollbar { display: none;} */
+/* to hide the scrollbar on my controls, but this doesn't work in ie8 */
+/* inspired by http://stackoverflow.com/questions/16670931/hide-scroll-bar-but-still-being-able-to-scroll */
+/* i found the following cross-browser solution. The only disadvantage is */
+/* that i must specify a height for the controls parent */
+#controls { 
+    position:absolute;
+    top:0;
+    right:0;
+    overflow:hidden; /* required to hide that scrollbar (see below) */
+    height:4em; /* must specify a height to make this work (unfortunately) */   
+}
 #controls h2 {
     display:none;
 }
 #controls ul {
-    position:absolute;
-    top:0;
-    right:0;
     padding:0.2em;
     margin:0;
     list-style:none;
     width:6em;
-    overflow-x:scroll;
+    overflow-x:scroll; /* enable scroll for touch */
+    overflow-y:hidden; /* but only horizontal scroll */
+    height:100%; /* this will push the scrollbar to the bottom the controls */
+    padding-bottom: 15px; /* and this will push it just a bit more out of sight */
     transition:width 100ms;
     -webkit-transition:width 100ms; /* Safari */
 }
 #controls ul:hover {
     width:11em !important;
 }
-#controls ul::-webkit-scrollbar {
-    display: none;
-}
+#controls ul::-webkit-scrollbar { display: none; }
 #controls li {
     display:block;
     padding-left:5.5em;
@@ -196,6 +206,15 @@ ul.buttons > li > a:hover {
     line-height:1.5em;
     text-align:center;
 }
+
+.flashcard.loggedin .card {
+    background:#cdddfd;
+    border:1px solid blue;
+}
+.flashcard.loggedin .attempt {
+    border:1px solid blue;
+}
+
 .flashcard .card.correct,
 .flashcard .card.correct .attempt {
     border:1px solid green;
@@ -206,6 +225,8 @@ ul.buttons > li > a:hover {
     border:1px solid orange;
     background:#ffedcc;
 }
+
+
 
 
 
