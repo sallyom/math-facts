@@ -8,10 +8,10 @@ body {
 
 {% block main-content %}
 <div class="flashcard">
-    <h2>Login</h2>
-
     {% if form.errors %}
-    <p style="color:red">Your username and password did not match. Please try again.</p>
+    <p style="color:red">Your username and password did not match.<br>Please try again.</p>
+    {% else %}
+    <h2>Login</h2>
     {% endif %}
 
     <form class="card" method="post" action="{% url django.contrib.auth.views.login %}">
