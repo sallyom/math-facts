@@ -76,20 +76,27 @@ def show_flashcard(request):
     # end hack
 
     if 'evaluate' in session:
-        del session['evaluate']
         session = request.session
         flashcard = get_flashcard(session['expression'])
-        is_correct = evaluate_flashcard(flashcard, session['attempt'])
+        if session['attempt'] == None:
+            context = {
+                'flashcard': flashcard,
+            }
+            context.update(session)
+            template = 'math/show_flashcard.html'
+        else:
+            del session['evaluate']
+            is_correct = evaluate_flashcard(flashcard, session['attempt'])
 
-        session['nbr_attempts'] = session.get('nbr_attempts', 0) + 1
-        session['nbr_correct'] = session.get('nbr_correct', 0) + is_correct
+            session['nbr_attempts'] = session.get('nbr_attempts', 0) + 1
+            session['nbr_correct'] = session.get('nbr_correct', 0) + is_correct
 
-        context = {
-            'flashcard': flashcard,
-            'is_correct': is_correct,
-        }
-        context.update(session)
-        template = 'math/show_flashcard_result.html'
+            context = {
+                'flashcard': flashcard,
+                'is_correct': is_correct,
+            }
+            context.update(session)
+            template = 'math/show_flashcard_result.html'
     else:
         flashcard_list = session.get('flashcard_list', [])
         if flashcard_list:
@@ -109,22 +116,24 @@ def show_flashcard(request):
 
 
 def post_flashcard(request):
-    request.session['evaluate'] = True
     expression = request.POST['expression']
     try:
         attempt = int(request.POST['attempt'])
     except:
         attempt = None
 
-    if request.user.is_authenticated():
-        fa = FlashcardAttempt()
-        fa.user = request.user
-        fa.expression = expression
-        fa.attempt = attempt
-        fa.save()
-
+    request.session['evaluate'] = True
     request.session['expression'] = expression
     request.session['attempt'] = attempt
+    
+    if attempt:
+        if request.user.is_authenticated():
+            fa = FlashcardAttempt()
+            fa.user = request.user
+            fa.expression = expression
+            fa.attempt = attempt
+            fa.save()
+
     return redirect('show_flashcard')
 
 
