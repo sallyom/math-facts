@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import random
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -64,6 +65,7 @@ def change_controls(request, key, value):
     return redirect('control_panel')
 
 
+@login_required(login_url='/math/login/')
 def show_flashcard(request):
     session = request.session
 
