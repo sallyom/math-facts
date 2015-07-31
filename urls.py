@@ -18,6 +18,6 @@ urlpatterns = patterns('',
     url(r'^panel/flashcard_list/edit/$', views.edit_flashcard_list, name='edit_flashcard_list'),
     url(r'^panel/flashcard_list/post/$', views.post_flashcard_list, name='post_flashcard_list'),
 
-    url(r'^math/login/$', 'django.contrib.auth.views.login', {'template_name': 'math/login.html'}, name='math_login'),
-    url(r'^math/logout/$', views.math_logout, name='math_logout'),
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'math/login.html'}, name='math_login'),
+    url(r'^logout/$', views.math_logout, name='math_logout'),
 )

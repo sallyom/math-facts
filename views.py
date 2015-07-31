@@ -80,7 +80,7 @@ def show_flashcard(request):
     if 'evaluate' in session:
         session = request.session
         flashcard = get_flashcard(session['expression'])
-        if session['attempt'] == None:
+        if 1==0: # session['attempt'] == None:
             context = {
                 'flashcard': flashcard,
             }

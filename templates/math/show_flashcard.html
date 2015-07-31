@@ -2,7 +2,7 @@
 
 {% block extra-style %}
 body {
-    background:#f9f4d6 url({{ STATIC_URL }}background.jpg) center top no-repeat;
+    background:#f9f4d6 url({{ STATIC_URL }}math/background.jpg) center top no-repeat;
 }
 {% endblock %}
 
@@ -10,7 +10,7 @@ body {
 
 <div class="flashcard{% if user.is_authenticated %} loggedin{% endif %}">
     <h2>Flashcards</h2>
-    <form class="card" method="post" action="{% url post_flashcard %}">
+    <form id="card" class="card" method="post" action="{% url post_flashcard %}">
         <span class="expression">
             <span class="argument">
                 <span class="term1">{{ flashcard.term1 }}</span>
@@ -24,17 +24,16 @@ body {
         <span class="attempt">
             <input type="number" name="attempt" autocomplete="off" pattern="[0-9]*" autofocus>
         </span>
-        <button name="submit">Try it</button>
+        <button name="answer">Try it</button>
         <input type="hidden" name="expression" value="{{ flashcard.term1 }}{{ flashcard.operation }}{{ flashcard.term2 }}">
         {% csrf_token %}
     </form>
 
     <div class="feedback">
-        <p>&nbsp;</p>
+        <div id="status"><p>&nbsp;</p></div>
         {% if nbr_attempts %}
         <p>So far, {{ nbr_correct }} out of {{ nbr_attempts }}.</p>
         {% else %}
-        <p>&nbsp;</p>
         {% endif %}
         <ul class="horizontal-list">
             {% if nbr_attempts %}
@@ -48,6 +47,19 @@ body {
         </ul>
     </div>
 </div>
+
+<script type="text/javascript">
+secs = 5;
+timer = setInterval(function () {
+    var element = document.getElementById("status");
+    element.innerHTML = "<p>You have "+secs+" seconds</p>";
+    if ( secs < 1 ) {
+        clearInterval(timer);
+        document.getElementById("card").submit();
+    }
+    secs--;
+}, 1000)
+</script>
 
 {% include "math/controls.html" %}
 {% endblock %}
