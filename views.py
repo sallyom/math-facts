@@ -113,7 +113,7 @@ def show_flashcard(request):
         if flashcard_list:
             flashcard = random.choice(flashcard_list)
         else:
-            maxterm, operation = get_controls(session)
+            maxterm, operation, timeout = get_controls(session)
             term1 = random.choice(range(maxterm + 1))
             term2 = random.choice(range(maxterm + 1))
             flashcard = generate_flashcard(term1, term2, operation)
