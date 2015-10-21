@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^panel/$', views.control_panel, name='control_panel'),
     url(r'^panel/maxterm/(?P<value>\d+)/$', views.change_controls, {'key': 'maxterm'}, name='change_maxterm'),
     url(r'^panel/operation/(?P<value>\w+)/$', views.change_controls, {'key': 'operation'}, name='change_operation'),
+    url(r'^panel/timeout/(?P<value>\w+)/$', views.change_controls, {'key': 'timeout'}, name='change_timeout'),
 
     url(r'^panel/flashcard_list/edit/$', views.edit_flashcard_list, name='edit_flashcard_list'),
     url(r'^panel/flashcard_list/post/$', views.post_flashcard_list, name='post_flashcard_list'),

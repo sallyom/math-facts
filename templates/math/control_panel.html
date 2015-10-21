@@ -39,6 +39,17 @@
     {% endif %}
     {% endfor %}
 </ul>
+
+<p>Choose timeout (in seconds):</p>
+<ul class="buttons">
+    {% for timeout in timeout_range %}
+    {% if current_timeout == timeout %}
+    <li><span>{{ timeout }}</span></li>
+    {% else %}
+    <li><a href="{% url change_timeout timeout %}">{{ timeout }}</a></li>
+    {% endif %}
+    {% endfor %}
+</ul>
 <p>Click <a href="{% url edit_flashcard_list %}">here</a> to create a custom flashcard list.</p>
 {% endif %}
 

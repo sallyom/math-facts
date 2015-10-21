@@ -48,8 +48,9 @@ body {
     </div>
 </div>
 
+{% if session.timeout %}
 <script type="text/javascript">
-secs = 5;
+secs = {{ session.timeout }};
 timer = setInterval(function () {
     var element = document.getElementById("status");
     element.innerHTML = "<p>You have "+secs+" seconds</p>";
@@ -60,6 +61,7 @@ timer = setInterval(function () {
     secs--;
 }, 1000)
 </script>
+{% endif %}
 
 {% include "math/controls.html" %}
 {% endblock %}

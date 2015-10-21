@@ -4,6 +4,9 @@ from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db.models import *
 
+timeout_range = range(10) # this is 0 to 9
+timeout_default = 9
+
 ## ------------------------------------------------------ ##
 
 class Operation(object):
@@ -90,13 +93,13 @@ def evaluate_flashcard(flashcard, proposed_answer):
 ## ------------------------------------------------------ ##
 
 maxterm_range = range(13) # this is 0 to 12
-maxterm_default = 5
+maxterm_default = 10
 
 initial_expression_list = []
-for i in range(13):
-    for j in range(13):
-        initial_expression_list.append('{} + {}'.format(i, j))
-        initial_expression_list.append('{} - {}'.format(i + j, i))
+#for i in range(10):
+#    for j in range(10):
+#        initial_expression_list.append('{} + {}'.format(i, j))
+#        initial_expression_list.append('{} - {}'.format(i + j, i))
         
 ## ------------------------------------------------------ ##
 

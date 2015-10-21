@@ -25,7 +25,14 @@ def get_controls(session):
     if 'operation' not in session:
         session['operation'] = operation
 
-    return maxterm, operation
+    try:
+        timeout = int(session['timeout'])
+    except:
+        timeout = timeout_default
+    if 'timeout' not in session:
+        session['timeout'] = timeout_default
+
+    return maxterm, operation, timeout
 
 
 ## ------------------------------------------------------ ##
@@ -41,13 +48,15 @@ def math_logout(request):
 
 def control_panel(request):
     session = request.session
-    maxterm, operation = get_controls(session)
+    maxterm, operation, timeout = get_controls(session)
 
     context = {
         'current_maxterm': maxterm,
         'maxterm_range': maxterm_range,
         'current_operation': operation,
         'operation_list': operation_list,
+        'current_timeout': timeout,
+        'timeout_range': timeout_range,
     }
     context.update(session)
     template = 'math/control_panel.html'
