@@ -48,9 +48,9 @@ body {
     </div>
 </div>
 
-{% if session.timeout %}
+{% if timeout %}
 <script type="text/javascript">
-secs = {{ session.timeout }};
+secs = {{ timeout }};
 timer = setInterval(function () {
     var element = document.getElementById("status");
     element.innerHTML = "<p>You have "+secs+" seconds</p>";
