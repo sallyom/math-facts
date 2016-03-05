@@ -9,28 +9,33 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.shortcuts import render
 
-from models import *
+# from models import *
+import models
 
 ## ------------------------------------------------------ ##
 
+
 def get_controls(session):
-    try:
-        maxterm = int(session['maxterm'])
-    except:
-        maxterm = maxterm_default
-    if 'maxterm' not in session:
+    if models.maxterm_default:
+        maxterm = models.maxterm_default
         session['maxterm'] = maxterm
+        models.maxterm_default = None
+    else:
+        maxterm = int(session['maxterm'])
 
-    operation = session.get('operation', operation_default)
-    if 'operation' not in session:
+    if models.operation_default:
+        operation = models.operation_default
         session['operation'] = operation
+        models.operation_default = None
+    else:
+        operation = session['operation']
 
-    try:
+    if models.timeout_default:
+        timeout = models.timeout_default
+        session['timeout'] = timeout
+        models.timeout_default = None
+    else:
         timeout = int(session['timeout'])
-    except:
-        timeout = timeout_default
-    if 'timeout' not in session:
-        session['timeout'] = timeout_default
 
     return maxterm, operation, timeout
 
@@ -79,16 +84,17 @@ def show_flashcard(request):
     session = request.session
 
     # just a hack until i set up auth/login, etc...
-    if 'flashcard_list' not in session:
+    if models.initial_expression_list:
         flashcard_list = list()
-        for expression in initial_expression_list:
-            flashcard_list.append(get_flashcard(expression))
+        for expression in models.initial_expression_list:
+            flashcard_list.append(models.get_flashcard(expression))
         request.session['flashcard_list'] = flashcard_list
+    models.initial_expression_list = []
     # end hack
 
     if 'evaluate' in session:
         session = request.session
-        flashcard = get_flashcard(session['expression'])
+        flashcard = models.get_flashcard(session['expression'])
         if 1==0: # session['attempt'] == None:
             context = {
                 'flashcard': flashcard,
@@ -97,7 +103,7 @@ def show_flashcard(request):
             template = 'math/show_flashcard.html'
         else:
             del session['evaluate']
-            is_correct = evaluate_flashcard(flashcard, session['attempt'])
+            is_correct = models.evaluate_flashcard(flashcard, session['attempt'])
 
             session['nbr_attempts'] = session.get('nbr_attempts', 0) + 1
             session['nbr_correct'] = session.get('nbr_correct', 0) + is_correct
@@ -109,11 +115,11 @@ def show_flashcard(request):
             context.update(session)
             template = 'math/show_flashcard_result.html'
     else:
-        flashcard_list = session.get('flashcard_list', [])
+        maxterm, operation, timeout = get_controls(session)
+        flashcard_list = session.get('flashcard_list')#, [])
         if flashcard_list:
             flashcard = random.choice(flashcard_list)
         else:
-            maxterm, operation, timeout = get_controls(session)
             term1 = random.choice(range(maxterm + 1))
             term2 = random.choice(range(maxterm + 1))
             flashcard = generate_flashcard(term1, term2, operation)
@@ -139,7 +145,7 @@ def post_flashcard(request):
     
     if attempt:
         if request.user.is_authenticated():
-            fa = FlashcardAttempt()
+            fa = models.FlashcardAttempt()
             fa.user = request.user
             fa.expression = expression
             fa.attempt = attempt
@@ -162,7 +168,7 @@ def post_flashcard_list(request):
         expressions_list = request.POST['flashcard_list'].splitlines()
         flashcard_list = list()
         for expression in expressions_list:
-            flashcard = get_flashcard(expression)
+            flashcard = models.get_flashcard(expression)
             if flashcard:
                 flashcard_list.append(flashcard)
             else: # there is a problem...

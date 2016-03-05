@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.db.models import *
 
 timeout_range = range(10) # this is 0 to 9
-timeout_default = 9
+timeout_default = 3
 
 ## ------------------------------------------------------ ##
 
@@ -95,7 +95,16 @@ def evaluate_flashcard(flashcard, proposed_answer):
 maxterm_range = range(13) # this is 0 to 12
 maxterm_default = 10
 
-initial_expression_list = []
+initial_expression_list = [
+'3*3','3*4','3*5','3*6',
+#'3*7','3*8','3*9','4*4',
+#'4*5','4*6','4*7','4*8',
+#'4*9','5*5','5*6','5*7',
+#'5*8','5*9','6*6','6*7',
+#'6*8','6*9','7*7','7*8',
+#'7*9','8*8','8*9','9*9'
+]
+
 #for i in range(10):
 #    for j in range(10):
 #        initial_expression_list.append('{} + {}'.format(i, j))
